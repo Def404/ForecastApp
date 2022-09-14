@@ -6,11 +6,15 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:local="clr-namespace:ForecastApp"
         mc:Ignorable="d"
-        Title="MainWindow" Height="700" Width="1100"
+        Title="MainWindow" 
+        Height="700" Width="1100"
+        WindowStartupLocation="CenterScreen"
+        MinHeight="700" MinWidth="1100"
         Background="{x:Null}">
     <Grid>
         <materialDesign:Card
-            Background="WhiteSmoke">
+            Background="WhiteSmoke"
+            UniformCornerRadius="0">
             
             <Grid>
                 <Grid.RowDefinitions>
@@ -28,47 +32,59 @@
                         Orientation="Horizontal">
                         
                         <Button
+                            x:Name="MainPageBtn"
                             Content="Главная"
                             Margin="30,0"
                             FontSize="20"
                             Background="{x:Null}"
                             Foreground="Black"
-                            BorderThickness="0,0,0,1"/>
+                            BorderThickness="0,0,0,1"
+                            Click="MainPageBtn_OnClick"/>
                         
                         <Button
+                            x:Name="SellPageBtn"
                             Content="Продажа"
                             Margin="30,0"
                             FontSize="20"
                             Background="{x:Null}"
                             Foreground="Black"
-                            BorderThickness="0,0,0,1"/>
+                            BorderThickness="0,0,0,1"
+                            Click="SellPageBtn_OnClick"/>
                         
                         <Button
+                            x:Name="ForecastPageBtn"
                             Content="Прогноз"
                             Margin="30,0"
                             FontSize="20"
                             Background="{x:Null}"
                             Foreground="Black"
-                            BorderThickness="0,0,0,1"/>
+                            BorderThickness="0,0,0,1"
+                            Click="ForecastPageBtn_OnClick"/>
                         
                         <Button
+                            x:Name="StatisticPageBtn"
                             Content="Статистика"
                             Margin="30,0"
                             FontSize="20"
                             Background="{x:Null}"
                             Foreground="Black"
-                            BorderThickness="0,0,0,1"/>
+                            BorderThickness="0,0,0,1"
+                            Click="StatisticPageBtn_OnClick"/>
                     </StackPanel>
                     
                     <Button
+                        x:Name="ProfilePageBtn"
                         Style="{StaticResource MaterialDesignFloatingActionMiniButton}"
                         Margin="50,0"
-                        HorizontalAlignment="Right">
+                        HorizontalAlignment="Right"
+                        Click="ProfilePageBtn_OnClick">
                         <materialDesign:PackIcon
-                            Kind="Account"
-                        />
+                            Kind="Account"/>
                     </Button>
                 </Grid>
+                <Grid
+                    x:Name="RenderPage"
+                    Grid.Row="1"/>
             </Grid>
         </materialDesign:Card>
 

@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "e9e7fe01-0213-4ae5-ad41-43f59a656423": {
+      "ProjectGuid": "e9e7fe01-0213-4ae5-ad41-43f59a656423",
+      "DisplayName": "ForecastApp",
+      "ColorIndex": 0
+    }
+  },
+  "NextColorIndex": 1
+}
