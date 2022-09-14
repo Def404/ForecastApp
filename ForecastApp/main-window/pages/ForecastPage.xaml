@@ -8,6 +8,143 @@
              mc:Ignorable="d"
              d:DesignHeight="650" d:DesignWidth="1100">
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="75"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <Grid
+            Grid.Row="0">
+            <StackPanel
+                Margin="25,0"
+                Orientation="Horizontal">
+
+                <ComboBox
+                    Margin="0,0,25,0"
+                    Width="150"
+                    materialDesign:HintAssist.Hint="Категория"
+                    Style="{StaticResource MaterialDesignFloatingHintComboBox}"/>
+
+                <ComboBox
+                    Margin="25,0"
+                    Width="150"
+                    materialDesign:HintAssist.Hint="Название"
+                    Style="{StaticResource MaterialDesignFloatingHintComboBox}"/>
+
+                <ComboBox
+                    Margin="25,0"
+                    Width="150"
+                    materialDesign:HintAssist.Hint="Метод прогнозирование"
+                    Style="{StaticResource MaterialDesignFloatingHintComboBox}"/>
+
+                <Button
+                    Content="Получить прогноз"
+                    Margin="25, 0"/>
+            </StackPanel>
+        </Grid>
+
+        <Grid
+            Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="500"/>
+                <ColumnDefinition Width="450"/>
+            </Grid.ColumnDefinitions>
+
+            <Grid
+                Grid.Column="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+
+                <Grid
+                    Grid.Row="0">
+                    <materialDesign:Card
+                        Margin="25,15"
+                        UniformCornerRadius="10">
+                        <StackPanel
+                            Orientation="Horizontal"
+                            Margin="5,0">
+
+                            <TextBlock
+                                Margin="0,5"
+                                Text="Информация"
+                                FontSize="18"/>
+
+                        </StackPanel>
+                    </materialDesign:Card>
+                </Grid>
+
+                <Grid
+                    Grid.Row="1">
+                    <materialDesign:Card
+                        Margin="25,15"
+                        UniformCornerRadius="10">
+
+                        <StackPanel
+                            Orientation="Horizontal"
+                            Margin="5,0">
+
+                            <TextBlock
+                                Margin="0,5"
+                                Text="Прогноз"
+                                FontSize="18"/>
+
+                        </StackPanel>
+                    </materialDesign:Card>
+                </Grid>
+            </Grid>
+
+            <Grid
+                Grid.Column="1">
+
+                <materialDesign:Card
+                    UniformCornerRadius="10"
+                    Margin="25, 15"
+                    Background="White"
+                    Width="400">
+                    
+                    <DataGrid
+                        CanUserAddRows="False"
+                        AutoGenerateColumns="False"
+                        IsReadOnly="True"
+                        HeadersVisibility="All"
+                        Margin="5"
+                        Background="White">
+
+                        <DataGrid.Columns>
+
+                            <materialDesign:DataGridTextColumn
+                                Header="Месяц"
+                                Width="1*"
+                                CanUserReorder="False"
+                                CanUserResize="False"
+                                FontSize="16"
+                                ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
+                                EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}">
+                                <materialDesign:DataGridTextColumn.Binding>
+                                    <Binding
+                                        Path="Name" />
+                                </materialDesign:DataGridTextColumn.Binding>
+                            </materialDesign:DataGridTextColumn>
+
+                            <materialDesign:DataGridTextColumn
+                                Header="Количество проданых товаров"
+                                Width="3*"
+                                CanUserReorder="False"
+                                CanUserResize="False"
+                                FontSize="16"
+                                ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
+                                EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}">
+                                <materialDesign:DataGridTextColumn.Binding>
+                                    <Binding
+                                        Path="Type" />
+                                </materialDesign:DataGridTextColumn.Binding>
+                            </materialDesign:DataGridTextColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </materialDesign:Card>
+            </Grid>
+        </Grid>
     </Grid>
 </UserControl>
