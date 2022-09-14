@@ -7,9 +7,9 @@
         xmlns:local="clr-namespace:ForecastApp"
         mc:Ignorable="d"
         Title="MainWindow" 
-        Height="700" Width="1100"
+        Height="750" Width="1100"
         WindowStartupLocation="CenterScreen"
-        MinHeight="700" MinWidth="1100"
+        MinHeight="750" MinWidth="1100"
         Background="{x:Null}">
     <Grid>
         <materialDesign:Card

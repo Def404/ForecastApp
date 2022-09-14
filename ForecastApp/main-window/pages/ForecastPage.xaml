@@ -6,7 +6,7 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:local="clr-namespace:ForecastApp.main_window.pages"
              mc:Ignorable="d"
-             d:DesignHeight="650" d:DesignWidth="1100">
+             d:DesignHeight="700" d:DesignWidth="1100">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="75"/>
@@ -46,12 +46,14 @@
         <Grid
             Grid.Row="1">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="500"/>
-                <ColumnDefinition Width="450"/>
+                <ColumnDefinition/>
+                <ColumnDefinition />
             </Grid.ColumnDefinitions>
 
             <Grid
-                Grid.Column="0">
+                Grid.Column="0"
+                HorizontalAlignment="Right"
+                Width="450">
                 <Grid.RowDefinitions>
                     <RowDefinition/>
                     <RowDefinition/>
@@ -96,7 +98,8 @@
             </Grid>
 
             <Grid
-                Grid.Column="1">
+                Grid.Column="1"
+                HorizontalAlignment="Left">
 
                 <materialDesign:Card
                     UniformCornerRadius="10"

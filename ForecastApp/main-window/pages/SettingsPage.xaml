@@ -6,7 +6,7 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:local="clr-namespace:ForecastApp.main_window.pages"
              mc:Ignorable="d"
-             d:DesignHeight="650" d:DesignWidth="1100">
+             d:DesignHeight="700" d:DesignWidth="1100">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>
@@ -18,12 +18,14 @@
             Orientation="Horizontal">
             
             <Button
+                x:Name="CategorySettingsPageBtn"
                 Content="Категории"
                 Margin="25, 0"
                 Background="{x:Null}"
                 Foreground="Black"
                 BorderThickness="0,0,0,1"
-                Style="{StaticResource MaterialDesignRaisedSecondaryButton}" Cursor="Hand"/>
+                Style="{StaticResource MaterialDesignRaisedSecondaryButton}" Cursor="Hand"
+                Click="CategorySettingsPageBtn_OnClick"/>
             
             <Button
                 Content="Товары"
