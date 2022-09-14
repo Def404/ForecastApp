@@ -8,23 +8,30 @@
              mc:Ignorable="d"
              d:DesignHeight="650" d:DesignWidth="1100">
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="300"/>
-            <RowDefinition />
-        </Grid.RowDefinitions>
+      
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="300"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
 
         <Grid
             Grid.Row="0">
 
             <materialDesign:Card
                 Margin="25, 15"
-                Width="250"
+             
+                Height="290"
                 UniformCornerRadius="10"
-                HorizontalAlignment="Left">
+                VerticalAlignment="Top">
 
                 <StackPanel
                     Orientation="Vertical"
                     Margin="5,0">
+
+                    <TextBlock
+                        Margin="0,5"
+                        Text="Добавление продажи"
+                        FontSize="18"/>
                     <ComboBox
                         Margin="0,5"
                         materialDesign:HintAssist.Hint="Категория"
@@ -46,7 +53,7 @@
                         Style="{StaticResource MaterialDesignFloatingHintDatePicker}"/>
 
                     <Button
-                        Margin="0,20"
+                        Margin="0,15"
                         Content="Добавить"
                         Width="120"/>
 
@@ -56,7 +63,7 @@
         </Grid>
 
         <Grid
-            Grid.Row="1">
+            Grid.Column="1">
             <materialDesign:Card
                 UniformCornerRadius="10"
                 Margin="25, 15"
