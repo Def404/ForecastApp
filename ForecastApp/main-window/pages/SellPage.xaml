@@ -8,6 +8,144 @@
              mc:Ignorable="d"
              d:DesignHeight="650" d:DesignWidth="1100">
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="300"/>
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+        <Grid
+            Grid.Row="0">
+
+            <materialDesign:Card
+                Margin="25, 15"
+                Width="250"
+                UniformCornerRadius="10"
+                HorizontalAlignment="Left">
+
+                <StackPanel
+                    Orientation="Vertical"
+                    Margin="5,0">
+                    <ComboBox
+                        Margin="0,5"
+                        materialDesign:HintAssist.Hint="Категория"
+                        Style="{StaticResource MaterialDesignFloatingHintComboBox}"/>
+
+                    <ComboBox
+                        Margin="0,5"
+                        materialDesign:HintAssist.Hint="Название"
+                        Style="{StaticResource MaterialDesignFloatingHintComboBox}"/>
+
+                    <TextBox
+                        Margin="0,5"
+                        materialDesign:HintAssist.Hint="Количество"
+                        Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
+
+                    <DatePicker
+                        Margin="0,5"
+                        materialDesign:HintAssist.Hint="Дата продажи"
+                        Style="{StaticResource MaterialDesignFloatingHintDatePicker}"/>
+
+                    <Button
+                        Margin="0,20"
+                        Content="Добавить"
+                        Width="120"/>
+
+
+                </StackPanel>
+            </materialDesign:Card>
+        </Grid>
+
+        <Grid
+            Grid.Row="1">
+            <materialDesign:Card
+                UniformCornerRadius="10"
+                Margin="25, 15"
+                Background="White">
+
+                <DataGrid
+                    CanUserAddRows="False"
+                    AutoGenerateColumns="False"
+                    IsReadOnly="True"
+                    HeadersVisibility="All"
+                    Margin="5"
+                    Background="White">
+
+                    <DataGrid.Columns>
+
+                        <materialDesign:DataGridTextColumn
+                            Header="Название"
+                            Width="1*"
+                            CanUserReorder="False"
+                            CanUserResize="False"
+                            FontSize="16"
+                            ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
+                            EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}">
+                            <materialDesign:DataGridTextColumn.Binding>
+                                <Binding
+                                    Path="Name" />
+                            </materialDesign:DataGridTextColumn.Binding>
+                        </materialDesign:DataGridTextColumn>
+
+                        <materialDesign:DataGridTextColumn
+                            Header="Категория"
+                            Width="1*"
+                            CanUserReorder="False"
+                            CanUserResize="False"
+                            FontSize="16"
+                            ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
+                            EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}">
+                            <materialDesign:DataGridTextColumn.Binding>
+                                <Binding
+                                    Path="Type" />
+                            </materialDesign:DataGridTextColumn.Binding>
+                        </materialDesign:DataGridTextColumn>
+
+                        <materialDesign:DataGridTextColumn
+                            Header="Количество"
+                            Width="1*"
+                            CanUserReorder="False"
+                            CanUserResize="False"
+                            FontSize="16"
+                            ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
+                            EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}">
+                            <materialDesign:DataGridTextColumn.Binding>
+                                <Binding
+                                    Path="Bank" />
+                            </materialDesign:DataGridTextColumn.Binding>
+                        </materialDesign:DataGridTextColumn>
+
+                        <materialDesign:DataGridTextColumn
+                            Header="Дата продажи"
+                            Width="1*"
+                            CanUserReorder="False"
+                            CanUserResize="False"
+                            FontSize="16"
+                            ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
+                            EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}">
+                            <materialDesign:DataGridTextColumn.Binding>
+                                <Binding
+                                    Path="Balanc" />
+                            </materialDesign:DataGridTextColumn.Binding>
+                        </materialDesign:DataGridTextColumn>
+
+                        <materialDesign:DataGridTextColumn
+                            Header="Сумма продажи"
+                            Width="1*"
+                            CanUserReorder="False"
+                            CanUserResize="False"
+                            FontSize="16"
+                            ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
+                            EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}">
+                            <materialDesign:DataGridTextColumn.Binding>
+                                <Binding
+                                    Path="Name" />
+                            </materialDesign:DataGridTextColumn.Binding>
+                        </materialDesign:DataGridTextColumn>
+
+                    </DataGrid.Columns>
+                    
+                </DataGrid>
+            </materialDesign:Card>
+        </Grid>
     </Grid>
 </UserControl>
