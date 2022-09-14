@@ -2,8 +2,8 @@
 
 namespace ForecastApp.main_window.pages;
 
-public partial class ProfilePage : UserControl{
-    public ProfilePage(){
+public partial class SettingsPage : UserControl{
+    public SettingsPage(){
         InitializeComponent();
     }
 }

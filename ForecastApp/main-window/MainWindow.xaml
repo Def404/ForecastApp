@@ -73,13 +73,13 @@
                     </StackPanel>
                     
                     <Button
-                        x:Name="ProfilePageBtn"
+                        x:Name="SettingsPageBtn"
                         Style="{StaticResource MaterialDesignFloatingActionMiniButton}"
                         Margin="50,0"
                         HorizontalAlignment="Right"
-                        Click="ProfilePageBtn_OnClick">
+                        Click="SettingsPageBtn_OnClick">
                         <materialDesign:PackIcon
-                            Kind="Account"/>
+                            Kind="Settings"/>
                     </Button>
                 </Grid>
                 <Grid

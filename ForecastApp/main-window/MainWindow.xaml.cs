@@ -12,7 +12,7 @@ namespace ForecastApp{
         private readonly SellPage _sellPage = new SellPage();
         private readonly ForecastPage _forecastPage = new ForecastPage();
         private readonly StatisticPage _statisticPage = new StatisticPage();
-        private readonly ProfilePage _profilePage = new ProfilePage();
+        private readonly SettingsPage _settingsPage = new SettingsPage();
         
         public MainWindow(){
             InitializeComponent();
@@ -38,9 +38,9 @@ namespace ForecastApp{
             RenderPage.Children.Add(_statisticPage);
         }
 
-        private void ProfilePageBtn_OnClick(object sender, RoutedEventArgs e){
+        private void SettingsPageBtn_OnClick(object sender, RoutedEventArgs e){
             RenderPage.Children.Clear();
-            RenderPage.Children.Add(_profilePage);
+            RenderPage.Children.Add(_settingsPage);
         }
     }
 }
