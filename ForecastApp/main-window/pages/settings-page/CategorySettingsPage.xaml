@@ -6,7 +6,8 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:local="clr-namespace:ForecastApp.main_window.pages"
              mc:Ignorable="d"
-             d:DesignHeight="650" d:DesignWidth="1100">
+             d:DesignHeight="650" d:DesignWidth="1100"
+             Loaded="CategorySettingsPage_OnLoaded">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
@@ -40,16 +41,19 @@
                             VerticalAlignment="Top"/>
 
                         <TextBox
+                            x:Name="NewCategoryNameTxtBox"
                             Margin="25, 5"
                             materialDesign:HintAssist.Hint="Название новой категории"
                             Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
 
                         <Button
+                            x:Name="AddCategoryBtn"
                             Margin="20"
                             HorizontalAlignment="Center"
                             Content="Добавить"
                             Width="120"
-                            Cursor="Hand"/>
+                            Cursor="Hand"
+                            Click="AddCategoryBtn_OnClick"/>
                     </StackPanel>
                 </materialDesign:Card>
             </Grid>
@@ -71,15 +75,22 @@
                             VerticalAlignment="Top"/>
 
                         <ComboBox
+                            x:Name="DelCategoryListCmbBox"
                             Margin="25,5"
                             materialDesign:HintAssist.Hint="Название категории"
-                            Style="{StaticResource MaterialDesignFloatingHintComboBox}"/>
+                            Style="{StaticResource MaterialDesignFloatingHintComboBox}"
+                            ItemsSource="{Binding Path=Category}"
+                            DisplayMemberPath="Name"
+                            SelectedValuePath="Name"
+                            SelectedValue="{Binding Path=Category}"/>
                         <Button
+                            x:Name="DelCategoryBtn"
                             Margin="20"
                             HorizontalAlignment="Center"
                             Content="Удалить"
                             Width="120"
-                            Cursor="Hand"/>
+                            Cursor="Hand"
+                            Click="DelCategoryBtn_OnClick"/>
                     </StackPanel>
                 </materialDesign:Card>
             </Grid>
@@ -94,28 +105,36 @@
                         Orientation="Vertical">
 
                         <TextBlock
-                            Text="Добавление новой категории"
+                            Text="Изменение категории"
                             HorizontalAlignment="Center"
                             Margin="25, 5"
                             FontSize="18"
                             VerticalAlignment="Top"/>
 
                         <ComboBox
+                            x:Name="ChangeCategoryListCmbBox"
                             Margin="25,5"
                             materialDesign:HintAssist.Hint="Старое название категории"
-                            Style="{StaticResource MaterialDesignFloatingHintComboBox}"/>
+                            Style="{StaticResource MaterialDesignFloatingHintComboBox}"
+                            ItemsSource="{Binding Path=Category}"
+                            DisplayMemberPath="Name"
+                            SelectedValuePath="Name"
+                            SelectedValue="{Binding Path=Category}"/>
 
                         <TextBox
+                            x:Name="ChangeCategoryNameTxtBox"
                             Margin="25, 5"
                             materialDesign:HintAssist.Hint="Новое название категории"
                             Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
 
                         <Button
+                            x:Name="UpdateCategoryBtn"
                             Margin="20"
                             HorizontalAlignment="Center"
                             Content="Изменить"
                             Width="120"
-                            Cursor="Hand"/>
+                            Cursor="Hand"
+                            Click="UpdateCategoryBtn_OnClick"/>
                     </StackPanel>
                 </materialDesign:Card>
             </Grid>
@@ -132,18 +151,32 @@
                     Width="400">
 
                 <DataGrid
-                        CanUserAddRows="False"
-                        AutoGenerateColumns="False"
-                        IsReadOnly="True"
-                        HeadersVisibility="All"
-                        Margin="5"
-                        Background="White">
+                    x:Name="CategoryListDataGrid"
+                    CanUserAddRows="False"
+                    AutoGenerateColumns="False"
+                    IsReadOnly="True"
+                    HeadersVisibility="All"
+                    Margin="5"
+                    Background="White">
 
                     <DataGrid.Columns>
+                        <materialDesign:DataGridTextColumn
+                            Header="№"
+                            Width="1*"
+                            CanUserReorder="False"
+                            CanUserResize="False"
+                            FontSize="16"
+                            ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
+                            EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}">
+                            <materialDesign:DataGridTextColumn.Binding>
+                                <Binding
+                                    Path="Index" />
+                            </materialDesign:DataGridTextColumn.Binding>
+                        </materialDesign:DataGridTextColumn>
 
                         <materialDesign:DataGridTextColumn
                                 Header="Название категории"
-                                Width="1*"
+                                Width="6*"
                                 CanUserReorder="False"
                                 CanUserResize="False"
                                 FontSize="16"
