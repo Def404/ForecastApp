@@ -42,4 +42,25 @@ public class DbModuleSale{
         
         return _sales;
     }
+
+    public void SetSale(string productName, string categoryName, int cntProduct, string saleDate){
+
+        PostgreSqlConnector sqlConnector = new PostgreSqlConnector();
+
+        var sqlCommand =
+            $"CREATE TEMP TABLE temp_table AS SELECT product_id, price FROM products WHERE product_name='{productName}' AND products.user_login='adef_test' AND category_id= (SELECT category_id FROM categories WHERE category_name ='{categoryName}' AND categories.user_login='adef_test'); INSERT INTO sales (product_id, cnt_product, sale_date, sale_price) VALUES ((SELECT product_id FROM temp_table), {cntProduct}, now(), (SELECT price FROM temp_table)); DROP TABLE temp_table;";
+
+        NpgsqlCommand command = new NpgsqlCommand(sqlCommand, sqlConnector.GetConnection());
+        
+        sqlConnector.OpenConnection();
+
+        try{
+            command.ExecuteNonQuery();
+        }
+        catch (Exception e){
+            MessageBox.Show(e.Message);
+        }
+        
+        sqlConnector.CloseConnection();
+    }
 }

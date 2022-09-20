@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using System.Windows.Controls;
 using ForecastApp.categories;
 using ForecastApp.products;
@@ -26,7 +27,21 @@ public partial class SellPage : UserControl{
     private void CategoryListCmbBox_OnSelectionChanged(object sender, SelectionChangedEventArgs e){
 
         var category = (Category)CategoryListCmbBox.SelectedItem;
-        var categoryName = category.Name;
-        ProductListCmnBox.ItemsSource = _moduleProduct.GetProductsOfCatList(categoryName);
+        if (category is not null){
+            var categoryName = category.Name;
+            ProductListCmnBox.ItemsSource = _moduleProduct.GetProductsOfCatList(categoryName);
+        }
+    }
+
+
+    private void AddSaleBtn_OnClick(object sender, RoutedEventArgs e){
+
+        var category = (Category)CategoryListCmbBox.SelectedItem;
+        var product = (Product)ProductListCmnBox.SelectedItem;
+        var cntProduct = Convert.ToInt32(CntProductTxtBox.Text);
+        var dateTime = Convert.ToDateTime(SaleDatePicker.Text);
+        var dateTimeStr = dateTime.ToString("MM/dd/yyyy");
+        
+        _moduleSale.SetSale(product.Name, category.Name, cntProduct, dateTimeStr);
     }
 }

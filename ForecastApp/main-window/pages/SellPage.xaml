@@ -70,7 +70,8 @@
                         x:Name="AddSaleBtn"
                         Margin="0,15"
                         Content="Добавить"
-                        Width="120"/>
+                        Width="120"
+                        Click="AddSaleBtn_OnClick"/>
 
 
                 </StackPanel>
