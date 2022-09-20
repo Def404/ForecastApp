@@ -6,7 +6,8 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:local="clr-namespace:ForecastApp.main_window.pages"
              mc:Ignorable="d"
-             d:DesignHeight="700" d:DesignWidth="1100">
+             d:DesignHeight="700" d:DesignWidth="1100"
+             Loaded="SellPage_OnLoaded">
     <Grid>
       
         <Grid.ColumnDefinitions>
@@ -33,26 +34,40 @@
                         Text="Добавление продажи"
                         FontSize="18"/>
                     <ComboBox
+                        x:Name="CategoryListCmbBox"
                         Margin="0,5"
                         materialDesign:HintAssist.Hint="Категория"
-                        Style="{StaticResource MaterialDesignFloatingHintComboBox}"/>
+                        Style="{StaticResource MaterialDesignFloatingHintComboBox}"
+                        ItemsSource="{Binding Path=Category}"
+                        DisplayMemberPath="Name"
+                        SelectedValuePath="Name"
+                        SelectedValue="{Binding Path=Category}"
+                        SelectionChanged="CategoryListCmbBox_OnSelectionChanged"/>
 
                     <ComboBox
+                        x:Name="ProductListCmnBox"
                         Margin="0,5"
                         materialDesign:HintAssist.Hint="Название"
-                        Style="{StaticResource MaterialDesignFloatingHintComboBox}"/>
+                        Style="{StaticResource MaterialDesignFloatingHintComboBox}"
+                        ItemsSource="{Binding Path=Product}"
+                        DisplayMemberPath="Name"
+                        SelectedValuePath="Name"
+                        SelectedValue="{Binding Path=Product}"/>
 
                     <TextBox
+                        x:Name="CntProductTxtBox"
                         Margin="0,5"
                         materialDesign:HintAssist.Hint="Количество"
                         Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
 
                     <DatePicker
+                        x:Name="SaleDatePicker"
                         Margin="0,5"
                         materialDesign:HintAssist.Hint="Дата продажи"
                         Style="{StaticResource MaterialDesignFloatingHintDatePicker}"/>
 
                     <Button
+                        x:Name="AddSaleBtn"
                         Margin="0,15"
                         Content="Добавить"
                         Width="120"/>
@@ -70,6 +85,7 @@
                 Background="White">
 
                 <DataGrid
+                    x:Name="SaleListDataGrid"
                     CanUserAddRows="False"
                     AutoGenerateColumns="False"
                     IsReadOnly="True"
@@ -78,6 +94,20 @@
                     Background="White">
 
                     <DataGrid.Columns>
+                        
+                        <materialDesign:DataGridTextColumn
+                            Header="№"
+                            Width="0.5*"
+                            CanUserReorder="False"
+                            CanUserResize="False"
+                            FontSize="16"
+                            ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
+                            EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}">
+                            <materialDesign:DataGridTextColumn.Binding>
+                                <Binding
+                                    Path="Index" />
+                            </materialDesign:DataGridTextColumn.Binding>
+                        </materialDesign:DataGridTextColumn>
 
                         <materialDesign:DataGridTextColumn
                             Header="Название"
@@ -89,7 +119,7 @@
                             EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}">
                             <materialDesign:DataGridTextColumn.Binding>
                                 <Binding
-                                    Path="Name" />
+                                    Path="ProductName" />
                             </materialDesign:DataGridTextColumn.Binding>
                         </materialDesign:DataGridTextColumn>
 
@@ -103,7 +133,7 @@
                             EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}">
                             <materialDesign:DataGridTextColumn.Binding>
                                 <Binding
-                                    Path="Type" />
+                                    Path="CategoryName" />
                             </materialDesign:DataGridTextColumn.Binding>
                         </materialDesign:DataGridTextColumn>
 
@@ -117,7 +147,7 @@
                             EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}">
                             <materialDesign:DataGridTextColumn.Binding>
                                 <Binding
-                                    Path="Bank" />
+                                    Path="CntProduct" />
                             </materialDesign:DataGridTextColumn.Binding>
                         </materialDesign:DataGridTextColumn>
 
@@ -131,7 +161,7 @@
                             EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}">
                             <materialDesign:DataGridTextColumn.Binding>
                                 <Binding
-                                    Path="Balanc" />
+                                    Path="SaleData" />
                             </materialDesign:DataGridTextColumn.Binding>
                         </materialDesign:DataGridTextColumn>
 
@@ -145,7 +175,7 @@
                             EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}">
                             <materialDesign:DataGridTextColumn.Binding>
                                 <Binding
-                                    Path="Name" />
+                                    Path="SalePrice" />
                             </materialDesign:DataGridTextColumn.Binding>
                         </materialDesign:DataGridTextColumn>
 
