@@ -98,13 +98,18 @@
                             ItemsSource="{Binding Path=Category}"
                             DisplayMemberPath="Name"
                             SelectedValuePath="Name"
-                            SelectedValue="{Binding Path=Category}"/>
+                            SelectedValue="{Binding Path=Category}"
+                            SelectionChanged="DelCategoryListCmbBox_OnSelectionChanged"/>
 
                         <ComboBox
                             x:Name="DelProductListCmbBox"
                             Margin="25,0"
                             materialDesign:HintAssist.Hint="Название товара"
-                            Style="{StaticResource MaterialDesignFloatingHintComboBox}"/>
+                            Style="{StaticResource MaterialDesignFloatingHintComboBox}"
+                            ItemsSource="{Binding Path=Product}"
+                            DisplayMemberPath="Name"
+                            SelectedValuePath="Name"
+                            SelectedValue="{Binding Path=Product}"/>
                         <Button
                             x:Name="DelProductBtn"
                             Margin="10"

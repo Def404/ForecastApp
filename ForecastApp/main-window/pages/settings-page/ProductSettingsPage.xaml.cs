@@ -70,4 +70,11 @@ public partial class ProductSettingsPage : UserControl{
         AddCategoryListCmbBox.ItemsSource = categories;
         DelCategoryListCmbBox.ItemsSource = categories;
     }
+
+    private void DelCategoryListCmbBox_OnSelectionChanged(object sender, SelectionChangedEventArgs e){
+     
+        var category = (Category)DelCategoryListCmbBox.SelectedItem;
+        var categoryName = category.Name;
+        DelProductListCmbBox.ItemsSource = _moduleProduct.GetProductsOfCatList(categoryName);
+    }
 }
