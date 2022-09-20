@@ -6,15 +6,10 @@ using Npgsql;
 namespace ForecastApp.categories;
 
 public class DbModuleCategory{
-
-   //private List<Category> _categories = new List<Category>(); 
-
     public List<Category> GetCategoryList(){
         
         List<Category> _categories = new List<Category>();
-        
-       // if (_categories.Count >= 1) return _categories;
-        
+
         PostgreSqlConnector sqlConnector = new PostgreSqlConnector();
             
         var sqlCommand = "SELECT * FROM categories WHERE user_login = 'adef_test'";
@@ -82,5 +77,24 @@ public class DbModuleCategory{
         }
 
         return result;
+    }
+
+    public void DelCategory(string categoryName){
+
+        PostgreSqlConnector sqlConnector = new PostgreSqlConnector();
+
+        var sqlCommand = $"DELETE FROM categories WHERE category_name = '{categoryName}' AND user_login='adef_test'";
+        NpgsqlCommand command = new NpgsqlCommand(sqlCommand, sqlConnector.GetConnection());
+        
+        sqlConnector.OpenConnection();
+
+        try{
+            command.ExecuteNonQuery();
+        }
+        catch (Exception e){
+            MessageBox.Show(e.Message);
+        }
+        
+        sqlConnector.CloseConnection();
     }
 }

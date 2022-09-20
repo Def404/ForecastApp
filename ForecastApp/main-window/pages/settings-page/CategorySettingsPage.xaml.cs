@@ -2,25 +2,21 @@
 using System.Windows;
 using System.Windows.Controls;
 using ForecastApp.categories;
+using ForecastApp.products;
 
 namespace ForecastApp.main_window.pages;
 
 public partial class CategorySettingsPage : UserControl{
 
     private readonly DbModuleCategory _moduleCategory = new DbModuleCategory();
-
-    //private List<Category> _categories = new List<Category>();
+    private readonly DbModuleProduct _moduleProduct = new DbModuleProduct();
+    
     public CategorySettingsPage(){
         InitializeComponent();
     }
 
     private void CategorySettingsPage_OnLoaded(object sender, RoutedEventArgs e){
-    
-        /*
-        if (_categories.Count <= 0){
-            _categories = _moduleCategory.GetCategoryList();
-        }*/
-
+        
         var categories = _moduleCategory.GetCategoryList();
         
         CategoryListDataGrid.ItemsSource = categories;
@@ -48,7 +44,21 @@ public partial class CategorySettingsPage : UserControl{
     }
 
     private void DelCategoryBtn_OnClick(object sender, RoutedEventArgs e){
+        if (DelCategoryListCmbBox.Text.Length <= 0){
+            MessageBox.Show("Укажите название категории");
+            return;
+        }
+
+        var category = (Category)DelCategoryListCmbBox.SelectedItem;
+        if (_moduleProduct.GetProductsOfCatList(category.Name).Count > 0){
+            MessageBox.Show("У категории есть товары");
+            return;
+        }
         
+        _moduleCategory.DelCategory(category.Name);
+        DelCategoryListCmbBox.SelectedItem = -1;
+        
+        UpdateForm();
     }
 
     private void UpdateCategoryBtn_OnClick(object sender, RoutedEventArgs e){
