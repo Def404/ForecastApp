@@ -59,22 +59,32 @@ public partial class ProductSettingsPage : UserControl{
     }
 
     private void DelProductBtn_OnClick(object sender, RoutedEventArgs e){
-       
+        if (DelCategoryListCmbBox.Text.Length <= 0 || DelProductListCmbBox.Text.Length <= 0){
+            MessageBox.Show("Выберете продукт");
+            return;
+        }
+
+        var category = (Category)DelCategoryListCmbBox.SelectedItem;
+        var product = (Product)DelProductListCmbBox.SelectedItem;
+        _moduleProduct.DelProduct(category.Name, product.Name);
+
+        DelCategoryListCmbBox.SelectedIndex = -1;
+        DelProductListCmbBox.SelectedIndex = -1;
+        
+        UpdateForm();
     }
 
     private void UpdateForm(){
         var products = _moduleProduct.GetProductList();
         ProductDataGrid.ItemsSource = products;
-
-        var categories = _moduleCategory.GetCategoryList();
-        AddCategoryListCmbBox.ItemsSource = categories;
-        DelCategoryListCmbBox.ItemsSource = categories;
     }
 
     private void DelCategoryListCmbBox_OnSelectionChanged(object sender, SelectionChangedEventArgs e){
      
         var category = (Category)DelCategoryListCmbBox.SelectedItem;
-        var categoryName = category.Name;
-        DelProductListCmbBox.ItemsSource = _moduleProduct.GetProductsOfCatList(categoryName);
+        if (category is not null){
+            var categoryName = category.Name;
+            DelProductListCmbBox.ItemsSource = _moduleProduct.GetProductsOfCatList(categoryName);
+        }
     }
 }

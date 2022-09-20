@@ -116,4 +116,25 @@ public class DbModuleProduct{
         
         return _products;
     }
+
+    public void DelProduct(string categoryName, string productName){
+
+        PostgreSqlConnector sqlConnector = new PostgreSqlConnector();
+
+        var sqlCommand =
+            $"DELETE FROM products WHERE product_name='{productName}' AND category_id = (SELECT category_id FROM categories WHERE category_name='{categoryName}' AND user_login='adef_test')";
+
+        NpgsqlCommand command = new NpgsqlCommand(sqlCommand, sqlConnector.GetConnection());
+        
+        sqlConnector.OpenConnection();
+
+        try{
+            command.ExecuteNonQuery();
+        }
+        catch (Exception e){
+            MessageBox.Show(e.Message);
+        }
+        
+        sqlConnector.CloseConnection();
+    }
 }
