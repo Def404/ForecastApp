@@ -62,7 +62,7 @@ public class DbModuleCategory{
 
     public bool CheckExistence(string categoryName){
 
-        Boolean result;
+        bool result;
 
         PostgreSqlConnector sqlConnector = new PostgreSqlConnector();
 
@@ -74,7 +74,7 @@ public class DbModuleCategory{
         sqlConnector.OpenConnection();
 
         try{
-            result = (Boolean)command.ExecuteScalar();
+            result = (bool)command.ExecuteScalar();
         }
         catch (Exception e){
             MessageBox.Show(e.Message);

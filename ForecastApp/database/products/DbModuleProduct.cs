@@ -40,4 +40,47 @@ public class DbModuleProduct{
         
         return _products;
     }
+
+    public void SetProduct(string productName, string category, decimal price){
+
+        PostgreSqlConnector sqlConnector = new PostgreSqlConnector();
+
+        var sqlCommand =
+            $"INSERT INTO products(product_name, category_id, price, user_login) VALUES ('{productName}', (SELECT category_id FROM categories WHERE categories.category_name = '{category}' AND categories.user_login = 'adef_test'), {price}, 'adef_test')";
+
+        NpgsqlCommand command = new NpgsqlCommand(sqlCommand, sqlConnector.GetConnection());
+        
+        sqlConnector.OpenConnection();
+
+        try{
+            command.ExecuteNonQuery();
+        }
+        catch (Exception e){
+            MessageBox.Show(e.Message);
+        }
+        
+        sqlConnector.CloseConnection();
+    }
+
+    public bool CheckExistence(string productName, string categoryName){
+        bool result;
+
+        PostgreSqlConnector sqlConnector = new PostgreSqlConnector();
+
+        var sqlCommand =
+            $"SELECT  EXISTS(SELECT * FROM products p WHERE p.product_name = '{productName}' AND p.category_id  = (SELECT category_id FROM categories WHERE category_name = '{categoryName}') AND p.user_login = 'adef_test')";
+
+        NpgsqlCommand command = new NpgsqlCommand(sqlCommand, sqlConnector.GetConnection());
+        
+        sqlConnector.OpenConnection();
+
+        try{
+            result = (bool)command.ExecuteScalar();
+        }
+        catch (Exception e){
+            MessageBox.Show(e.Message);
+            result = true;
+        }
+        return result;
+    }
 }
