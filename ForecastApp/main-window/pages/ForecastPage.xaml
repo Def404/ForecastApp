@@ -6,7 +6,8 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:local="clr-namespace:ForecastApp.main_window.pages"
              mc:Ignorable="d"
-             d:DesignHeight="700" d:DesignWidth="1100">
+             d:DesignHeight="700" d:DesignWidth="1100"
+             Loaded="ForecastPage_OnLoaded">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="75"/>
@@ -20,16 +21,27 @@
                 Orientation="Horizontal">
 
                 <ComboBox
+                    x:Name="CategoryListCmbBox"
                     Margin="0,0,25,0"
                     Width="150"
                     materialDesign:HintAssist.Hint="Категория"
-                    Style="{StaticResource MaterialDesignFloatingHintComboBox}"/>
+                    Style="{StaticResource MaterialDesignFloatingHintComboBox}"
+                    ItemsSource="{Binding Path=Category}"
+                    DisplayMemberPath="Name"
+                    SelectedValuePath="Name"
+                    SelectedValue="{Binding Path=Category}"
+                    SelectionChanged="CategoryListCmbBox_OnSelectionChanged"/>
 
                 <ComboBox
+                    x:Name="ProductNameListCmbBox"
                     Margin="25,0"
                     Width="150"
                     materialDesign:HintAssist.Hint="Название"
-                    Style="{StaticResource MaterialDesignFloatingHintComboBox}"/>
+                    Style="{StaticResource MaterialDesignFloatingHintComboBox}"
+                    ItemsSource="{Binding Path=Product}"
+                    DisplayMemberPath="Name"
+                    SelectedValuePath="Name"
+                    SelectedValue="{Binding Path=Product}"/>
 
                 <ComboBox
                     Margin="25,0"
