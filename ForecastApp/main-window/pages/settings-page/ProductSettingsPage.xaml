@@ -6,7 +6,8 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:local="clr-namespace:ForecastApp.main_window.pages.settings_page"
              mc:Ignorable="d"
-             d:DesignHeight="650" d:DesignWidth="1100">
+             d:DesignHeight="650" d:DesignWidth="1100"
+             Loaded="ProductSettingsPage_OnLoaded">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
@@ -40,26 +41,35 @@
                             VerticalAlignment="Top"/>
 
                         <TextBox
+                            x:Name="AddProductNameTxtBox"
                             Margin="25, 0"
                             materialDesign:HintAssist.Hint="Название товара"
                             Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
 
                         <ComboBox
+                            x:Name="AddCategoryListCmbBox"
                             Margin="25,0"
                             materialDesign:HintAssist.Hint="Категоря товара"
-                            Style="{StaticResource MaterialDesignFloatingHintComboBox}"/>
+                            Style="{StaticResource MaterialDesignFloatingHintComboBox}"
+                            ItemsSource="{Binding Path=Category}"
+                            DisplayMemberPath="Name"
+                            SelectedValuePath="Name"
+                            SelectedValue="{Binding Path=Category}"/>
 
                         <TextBox
+                            x:Name="AddPriceTxtBox"
                             Margin="25, 0"
                             materialDesign:HintAssist.Hint="Цена за штуку"
                             Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
 
                         <Button
+                            x:Name="AddProductBtn"
                             Margin="10"
                             HorizontalAlignment="Center"
                             Content="Добавить"
                             Width="120"
-                            Cursor="Hand"/>
+                            Cursor="Hand"
+                            Click="AddProductBtn_OnClick"/>
                     </StackPanel>
                 </materialDesign:Card>
             </Grid>
@@ -81,20 +91,28 @@
                             VerticalAlignment="Top"/>
 
                         <ComboBox
+                            x:Name="DelCategoryListCmbBox"
                             Margin="25,0"
                             materialDesign:HintAssist.Hint="Категоря товара"
-                            Style="{StaticResource MaterialDesignFloatingHintComboBox}"/>
+                            Style="{StaticResource MaterialDesignFloatingHintComboBox}"
+                            ItemsSource="{Binding Path=Category}"
+                            DisplayMemberPath="Name"
+                            SelectedValuePath="Name"
+                            SelectedValue="{Binding Path=Category}"/>
 
                         <ComboBox
+                            x:Name="DelProductListCmbBox"
                             Margin="25,0"
-                            materialDesign:HintAssist.Hint="Название категории"
+                            materialDesign:HintAssist.Hint="Название товара"
                             Style="{StaticResource MaterialDesignFloatingHintComboBox}"/>
                         <Button
+                            x:Name="DelProductBtn"
                             Margin="10"
                             HorizontalAlignment="Center"
                             Content="Удалить"
                             Width="120"
-                            Cursor="Hand"/>
+                            Cursor="Hand"
+                            Click="DelProductBtn_OnClick"/>
                     </StackPanel>
                 </materialDesign:Card>
             </Grid>
@@ -136,21 +154,35 @@
                     UniformCornerRadius="10"
                     Margin="25, 15"
                     Background="White"
-                    Width="400">
+                    Width="470">
 
                 <DataGrid
-                        CanUserAddRows="False"
-                        AutoGenerateColumns="False"
-                        IsReadOnly="True"
-                        HeadersVisibility="All"
-                        Margin="5"
-                        Background="White">
+                    x:Name="ProductDataGrid"
+                    CanUserAddRows="False"
+                    AutoGenerateColumns="False"
+                    IsReadOnly="True"
+                    HeadersVisibility="All"
+                    Margin="5"
+                    Background="White">
 
                     <DataGrid.Columns>
-
+                        <materialDesign:DataGridTextColumn
+                            Header="№"
+                            Width="1*"
+                            CanUserReorder="False"
+                            CanUserResize="False"
+                            FontSize="16"
+                            ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
+                            EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}">
+                            <materialDesign:DataGridTextColumn.Binding>
+                                <Binding
+                                    Path="Index" />
+                            </materialDesign:DataGridTextColumn.Binding>
+                        </materialDesign:DataGridTextColumn>
+                        
                         <materialDesign:DataGridTextColumn
                                 Header="Название товара"
-                                Width="1*"
+                                Width="3*"
                                 CanUserReorder="False"
                                 CanUserResize="False"
                                 FontSize="16"
@@ -164,7 +196,7 @@
                         
                         <materialDesign:DataGridTextColumn
                                 Header="Категория"
-                                Width="1*"
+                                Width="3*"
                                 CanUserReorder="False"
                                 CanUserResize="False"
                                 FontSize="16"
@@ -172,13 +204,13 @@
                                 EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}">
                             <materialDesign:DataGridTextColumn.Binding>
                                 <Binding
-                                        Path="Name" />
+                                        Path="Category" />
                             </materialDesign:DataGridTextColumn.Binding>
                         </materialDesign:DataGridTextColumn>
 
                         <materialDesign:DataGridTextColumn
                                 Header="Цена за штуку"
-                                Width="1*"
+                                Width="2*"
                                 CanUserReorder="False"
                                 CanUserResize="False"
                                 FontSize="16"
@@ -186,7 +218,7 @@
                                 EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}">
                             <materialDesign:DataGridTextColumn.Binding>
                                 <Binding
-                                        Path="Name" />
+                                        Path="Price" />
                             </materialDesign:DataGridTextColumn.Binding>
                         </materialDesign:DataGridTextColumn>
                     </DataGrid.Columns>
