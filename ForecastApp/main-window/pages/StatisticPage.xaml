@@ -74,6 +74,7 @@
                         VerticalAlignment="Center"
                         HorizontalAlignment="Center">
                         <TextBlock
+                            x:Name="CntSumTxtBlock"
                             Text="1511"
                             FontSize="36"
                             HorizontalAlignment="Center"/>
@@ -87,6 +88,7 @@
                         VerticalAlignment="Center"
                         HorizontalAlignment="Center">
                         <TextBlock
+                            x:Name="SumPriceTxtBlock"
                             Text="33333333 руб"
                             FontSize="36"
                             HorizontalAlignment="Center"/>
@@ -100,6 +102,7 @@
                         VerticalAlignment="Center"
                         HorizontalAlignment="Center">
                         <TextBlock
+                            x:Name="TopProductNameTxtBlock"
                             Text="Серое пальто"
                             FontSize="36"
                             HorizontalAlignment="Center"/>
