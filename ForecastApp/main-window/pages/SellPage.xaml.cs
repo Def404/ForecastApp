@@ -38,10 +38,33 @@ public partial class SellPage : UserControl{
 
         var category = (Category)CategoryListCmbBox.SelectedItem;
         var product = (Product)ProductListCmnBox.SelectedItem;
-        var cntProduct = Convert.ToInt32(CntProductTxtBox.Text);
-        var dateTime = Convert.ToDateTime(SaleDatePicker.Text);
-        var dateTimeStr = dateTime.ToString("MM/dd/yyyy");
-        
+        var cntProduct = 0;
+       
+        var dateTimeStr = "";
+
+        if (category is null || product is null){
+            MessageBox.Show("category or product is null");
+            return;
+        }
+
+        try{
+            cntProduct = Convert.ToInt32(CntProductTxtBox.Text);
+            var dateTime = Convert.ToDateTime(SaleDatePicker.Text);
+            dateTimeStr = dateTime.ToString("MM-dd-yyyy");
+        }
+        catch (Exception exception){
+            MessageBox.Show(exception.Message);
+            return;
+        }
         _moduleSale.SetSale(product.Name, category.Name, cntProduct, dateTimeStr);
+        
+        ProductListCmnBox.SelectedIndex = -1;
+        CategoryListCmbBox.SelectedIndex = -1;
+        
+        CntProductTxtBox.Clear();
+        SaleDatePicker.Text = "";
+        
+        var sales = _moduleSale.GetSaleList();
+        SaleListDataGrid.ItemsSource = sales;
     }
 }

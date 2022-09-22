@@ -96,7 +96,7 @@
 
                     <DataGrid.Columns>
                         
-                        <materialDesign:DataGridTextColumn
+                        <!--<materialDesign:DataGridTextColumn
                             Header="№"
                             Width="0.5*"
                             CanUserReorder="False"
@@ -108,7 +108,7 @@
                                 <Binding
                                     Path="Index" />
                             </materialDesign:DataGridTextColumn.Binding>
-                        </materialDesign:DataGridTextColumn>
+                        </materialDesign:DataGridTextColumn>-->
 
                         <materialDesign:DataGridTextColumn
                             Header="Название"
