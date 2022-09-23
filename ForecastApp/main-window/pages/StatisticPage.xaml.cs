@@ -19,14 +19,14 @@ public partial class StatisticPage : UserControl{
     }
 
     private void DayAllStatBtn_OnClick(object sender, RoutedEventArgs e){
-        string date = DateTime.Now.ToString("MM-dd-yyyy");
+        string date = DateTime.Now.ToString("dd-MM-yyyy");
         
         LoadAllStatistic(date, date);
     }
 
     private void MonthAllStatBtn_OnClick(object sender, RoutedEventArgs e){
         DateTime dateTimeNow = DateTime.Now;
-        string startDate =  dateTimeNow.ToString("MM-dd-yyyy");
+        string startDate =  dateTimeNow.ToString("dd-MM-yyyy");
         string endDate = new DateTime(dateTimeNow.Year, dateTimeNow.Month - 1, dateTimeNow.Day).ToString("MM-dd-yyyy");
         
         LoadAllStatistic(startDate, endDate);
@@ -34,15 +34,15 @@ public partial class StatisticPage : UserControl{
 
     private void YearAllStatBtn_OnClick(object sender, RoutedEventArgs e){
         DateTime dateTimeNow = DateTime.Now;
-        string startDate =  dateTimeNow.ToString("MM-dd-yyyy");
+        string startDate =  dateTimeNow.ToString("dd-MM-yyyyy");
         string endDate = new DateTime(dateTimeNow.Year - 1, dateTimeNow.Month , dateTimeNow.Day).ToString("MM-dd-yyyy");
         
         LoadAllStatistic(startDate, endDate);
     }
 
     private void AllTimeAllStatBtn_OnClick(object sender, RoutedEventArgs e){
-        string startDate = DateTime.MinValue.ToString("MM-dd-yyyy");
-        string endDate = DateTime.MaxValue.ToString("MM-dd-yyyy");
+        string startDate = DateTime.MinValue.ToString("dd-MM-yyyy");
+        string endDate = DateTime.MaxValue.ToString("dd-MM-yyyy");
         
         LoadAllStatistic(startDate, endDate);
     }
