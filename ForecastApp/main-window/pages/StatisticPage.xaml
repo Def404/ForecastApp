@@ -6,7 +6,8 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:local="clr-namespace:ForecastApp.main_window.pages"
              mc:Ignorable="d"
-             d:DesignHeight="700" d:DesignWidth="1100">
+             d:DesignHeight="700" d:DesignWidth="1100"
+             Loaded="StatisticPage_OnLoaded">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="200"/>
@@ -33,29 +34,37 @@
                 Orientation="Horizontal"
                 Margin="25, 0">
                 <Button
+                    x:Name="DayAllStatBtn"
                     Content="За день"
                     Background="{x:Null}"
                     Foreground="Black"
                     BorderThickness="0,0,0,1"
-                    Margin="0,  0, 25, 0"/>
+                    Margin="0,  0, 25, 0"
+                    Click="DayAllStatBtn_OnClick"/>
                 <Button
+                    x:Name="MonthAllStatBtn"
                     Content="За месяц"
                     Background="{x:Null}"
                     Foreground="Black"
                     BorderThickness="0,0,0,1"
-                    Margin="25,  0"/>
+                    Margin="25,  0"
+                    Click="MonthAllStatBtn_OnClick"/>
                 <Button
+                    x:Name="YearAllStatBtn"
                     Content="За год"
                     Background="{x:Null}"
                     Foreground="Black"
                     BorderThickness="0,0,0,1"
-                    Margin="25,  0"/>
+                    Margin="25,  0"
+                    Click="YearAllStatBtn_OnClick"/>
                 <Button
+                    x:Name="AllTimeAllStatBtn"
                     Content="За все время"
                     Background="{x:Null}"
                     Foreground="Black"
                     BorderThickness="0,0,0,1"
-                    Margin="25,  0"/>
+                    Margin="25,  0"
+                    Click="AllTimeAllStatBtn_OnClick"/>
             </StackPanel>
 
             <materialDesign:Card

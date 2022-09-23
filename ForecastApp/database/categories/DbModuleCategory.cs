@@ -40,7 +40,7 @@ public class DbModuleCategory{
 
         PostgreSqlConnector sqlConnector = new PostgreSqlConnector();
 
-        var sqlCommand = $"INSERT INTO categories(category_name, user_login) VALUES ('{categoryName}', 'adef_test')";
+        var sqlCommand = $"INSERT INTO categories(category_name, user_login) VALUES ('{categoryName}', (SELECT login FROM users WHERE login = 'adef_test'))";
         NpgsqlCommand command = new NpgsqlCommand(sqlCommand, sqlConnector.GetConnection());
         
         sqlConnector.OpenConnection();
