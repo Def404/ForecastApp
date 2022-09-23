@@ -149,24 +149,30 @@
                         VerticalAlignment="Center"
                         Margin="25,0"/>
                         <ComboBox
-                        Grid.Row="1"
-                        Margin="25,0"
-                        Width="150"
-                        HorizontalAlignment="Left"
-                        materialDesign:HintAssist.Hint="Сортировка по"
-                        Style="{StaticResource MaterialDesignFloatingHintComboBox}"/>
+                            x:Name="BestSortCmbBox"
+                            Grid.Row="1"
+                            Margin="25,0"
+                            Width="150"
+                            HorizontalAlignment="Left"
+                            materialDesign:HintAssist.Hint="Сортировка по"
+                            SelectedIndex="0"
+                            Style="{StaticResource MaterialDesignFloatingHintComboBox}"
+                            SelectionChanged="BestSortCmbBox_OnSelectionChanged">
+                            <TextBlock Text="по количеству"/>
+                            <TextBlock Text="по выручке"/>
+                        </ComboBox>
 
                         <Grid
                         Grid.Row="2">
                            
                                 <DataGrid
                                 
-                                CanUserAddRows="False"
-                                AutoGenerateColumns="False"
-                                IsReadOnly="True"
-                                HeadersVisibility="All"
-                                Margin="10"
-                                Background="White">
+                                    CanUserAddRows="False"
+                                    AutoGenerateColumns="False"
+                                    IsReadOnly="True"
+                                    HeadersVisibility="All"
+                                    Margin="10"
+                                    Background="White">
 
                                     <DataGrid.Columns>
                                         <materialDesign:DataGridTextColumn

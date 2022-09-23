@@ -72,4 +72,13 @@ public partial class StatisticPage : UserControl{
         SumPriceTxtBlock.Text = sumPrice +" ₽";
         CntSumTxtBlock.Text = sumCnt.ToString();
     }
+
+    private void BestSortCmbBox_OnSelectionChanged(object sender, SelectionChangedEventArgs e){
+        switch ((string)BestSortCmbBox.SelectedItem){
+            case "по количесву":
+                break;
+            case "по выручке":
+                break;
+        }
+    }
 }
