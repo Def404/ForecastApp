@@ -28,16 +28,16 @@ public partial class StatisticPage : UserControl{
 
     private void MonthAllStatBtn_OnClick(object sender, RoutedEventArgs e){
         DateTime dateTimeNow = DateTime.Now;
-        string startDate =  dateTimeNow.ToString("dd-MM-yyyy");
-        string endDate = new DateTime(dateTimeNow.Year, dateTimeNow.Month - 1, dateTimeNow.Day).ToString("MM-dd-yyyy");
+        string endDate =  dateTimeNow.ToString("dd-MM-yyyy");
+        string startDate = new DateTime(dateTimeNow.Year, dateTimeNow.Month - 1, dateTimeNow.Day).ToString("dd-MM-yyyy");
         
         LoadAllStatistic(startDate, endDate);
     }
 
     private void YearAllStatBtn_OnClick(object sender, RoutedEventArgs e){
         DateTime dateTimeNow = DateTime.Now;
-        string startDate =  dateTimeNow.ToString("dd-MM-yyyyy");
-        string endDate = new DateTime(dateTimeNow.Year - 1, dateTimeNow.Month , dateTimeNow.Day).ToString("MM-dd-yyyy");
+        string endDate =  dateTimeNow.ToString("dd-MM-yyyy");
+        string startDate = new DateTime(dateTimeNow.Year - 1, dateTimeNow.Month , dateTimeNow.Day).ToString("dd-MM-yyyy");
         
         LoadAllStatistic(startDate, endDate);
     }
