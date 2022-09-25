@@ -155,7 +155,7 @@
                             Width="150"
                             HorizontalAlignment="Left"
                             materialDesign:HintAssist.Hint="Сортировка по"
-                            SelectedIndex="0"
+                            SelectedIndex="-1"
                             Style="{StaticResource MaterialDesignFloatingHintComboBox}"
                             SelectionChanged="BestSortCmbBox_OnSelectionChanged">
                             <TextBlock Text="по количеству"/>
@@ -166,7 +166,7 @@
                         Grid.Row="2">
                            
                                 <DataGrid
-                                
+                                    x:Name="BestProductsDataGrid"
                                     CanUserAddRows="False"
                                     AutoGenerateColumns="False"
                                     IsReadOnly="True"
@@ -176,73 +176,73 @@
 
                                     <DataGrid.Columns>
                                         <materialDesign:DataGridTextColumn
-                                        Header="Дата"
-                                        Width="0.75*"
-                                        CanUserReorder="False"
-                                        CanUserResize="False"
-                                        FontSize="16"
-                                        ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
-                                        EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}">
-                                            <materialDesign:DataGridTextColumn.Binding>
-                                                <Binding
-                                               Path="Name" />
-                                            </materialDesign:DataGridTextColumn.Binding>
+                                            Header="Дата"
+                                            Width="0.75*"
+                                            CanUserReorder="False"
+                                            CanUserResize="False"
+                                            FontSize="16"
+                                            ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
+                                            EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}">
+                                                <materialDesign:DataGridTextColumn.Binding>
+                                                    <Binding
+                                                   Path="Date" />
+                                                </materialDesign:DataGridTextColumn.Binding>
                                         </materialDesign:DataGridTextColumn>
 
                                         <materialDesign:DataGridTextColumn
-                                        Header="Товар"
-                                        Width="1*"
-                                        CanUserReorder="False"
-                                        CanUserResize="False"
-                                        FontSize="16"
-                                        ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
-                                        EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}">
-                                            <materialDesign:DataGridTextColumn.Binding>
-                                                <Binding
-                                               Path="Name" />
-                                            </materialDesign:DataGridTextColumn.Binding>
+                                            Header="Товар"
+                                            Width="1*"
+                                            CanUserReorder="False"
+                                            CanUserResize="False"
+                                            FontSize="16"
+                                            ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
+                                            EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}">
+                                                <materialDesign:DataGridTextColumn.Binding>
+                                                    <Binding
+                                                   Path="ProductName" />
+                                                </materialDesign:DataGridTextColumn.Binding>
                                         </materialDesign:DataGridTextColumn>
 
                                         <materialDesign:DataGridTextColumn
-                                        Header="Категория"
-                                        Width="1*"
-                                        CanUserReorder="False"
-                                        CanUserResize="False"
-                                        FontSize="16"
-                                        ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
-                                        EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}">
-                                            <materialDesign:DataGridTextColumn.Binding>
-                                                <Binding
-                                               Path="Name" />
-                                            </materialDesign:DataGridTextColumn.Binding>
+                                            Header="Категория"
+                                            Width="1*"
+                                            CanUserReorder="False"
+                                            CanUserResize="False"
+                                            FontSize="16"
+                                            ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
+                                            EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}">
+                                                <materialDesign:DataGridTextColumn.Binding>
+                                                    <Binding
+                                                   Path="CategoryName" />
+                                                </materialDesign:DataGridTextColumn.Binding>
                                         </materialDesign:DataGridTextColumn>
 
                                         <materialDesign:DataGridTextColumn
-                                        Header="Кол-во"
-                                        Width="0.75*"
-                                        CanUserReorder="False"
-                                        CanUserResize="False"
-                                        FontSize="16"
-                                        ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
-                                        EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}">
-                                            <materialDesign:DataGridTextColumn.Binding>
-                                                <Binding
-                                               Path="Name" />
-                                            </materialDesign:DataGridTextColumn.Binding>
+                                            Header="Кол-во"
+                                            Width="0.75*"
+                                            CanUserReorder="False"
+                                            CanUserResize="False"
+                                            FontSize="16"
+                                            ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
+                                            EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}">
+                                                <materialDesign:DataGridTextColumn.Binding>
+                                                    <Binding
+                                                   Path="SumCntProduct" />
+                                                </materialDesign:DataGridTextColumn.Binding>
                                         </materialDesign:DataGridTextColumn>
 
                                         <materialDesign:DataGridTextColumn
-                                        Header="Выручка"
-                                        Width="1*"
-                                        CanUserReorder="False"
-                                        CanUserResize="False"
-                                        FontSize="16"
-                                        ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
-                                        EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}">
-                                            <materialDesign:DataGridTextColumn.Binding>
-                                                <Binding
-                                               Path="Name" />
-                                            </materialDesign:DataGridTextColumn.Binding>
+                                            Header="Выручка"
+                                            Width="1*"
+                                            CanUserReorder="False"
+                                            CanUserResize="False"
+                                            FontSize="16"
+                                            ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
+                                            EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}">
+                                                <materialDesign:DataGridTextColumn.Binding>
+                                                    <Binding
+                                                   Path="SumPrice" />
+                                                </materialDesign:DataGridTextColumn.Binding>
                                         </materialDesign:DataGridTextColumn>
 
                                     </DataGrid.Columns>

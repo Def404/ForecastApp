@@ -41,6 +41,76 @@ public class DbModuleStatistic{
         
         return allStatistics;
     }
+
+    public List<BestSaleProduct> GetBestCntSaleProductList(){
+
+        List<BestSaleProduct> bestSaleProducts = new List<BestSaleProduct>();
+
+        PostgreSqlConnector sqlConnector = new PostgreSqlConnector();
+
+        var sqlCommand =
+            "CREATE TEMP TABLE tempBestCnt AS SELECT product_id, (SELECT product_name FROM products p WHERE p.product_id = s.product_id) as product_name, (SELECT category_name FROM categories c, products p WHERE p.product_id = s.product_id AND p.category_id = c.category_id AND c.user_login='adef_test') AS category_name, extract(month from sale_date) AS month, extract(year from sale_date) AS year, sum(cnt_product) AS sumCnt, sum(sale_price * cnt_product) as sumPrice  FROM sales s GROUP BY product_id, month, year; SELECT product_id, product_name, category_name, year, month, sumCnt, sumPrice FROM tempBestCnt WHERE (sumCnt, year, month) IN (SELECT max(sumCnt), year, month FROM tempBestCnt GROUP BY year, month);";
+
+        NpgsqlCommand command = new NpgsqlCommand(sqlCommand, sqlConnector.GetConnection());
+        
+        sqlConnector.OpenConnection();
+
+        try{
+            NpgsqlDataReader reader = command.ExecuteReader();
+
+            while (reader.Read()){
+                bestSaleProducts.Add(new BestSaleProduct(
+                    reader["product_name"].ToString(),
+                    reader["category_name"].ToString(),
+                    Convert.ToInt32(reader["year"]),
+                    Convert.ToInt32(reader["month"]),
+                    Convert.ToInt32(reader["sumCnt"]),
+                    Convert.ToDecimal(reader["sumPrice"])
+                ));
+            }
+        }
+        catch (Exception e){
+            MessageBox.Show(e.Message);
+        }
+        
+        sqlConnector.CloseConnection();
+        
+        return bestSaleProducts;
+    }
     
-    
+    public List<BestSaleProduct> GetBestPriceSaleProductList(){
+
+        List<BestSaleProduct> bestSaleProducts = new List<BestSaleProduct>();
+
+        PostgreSqlConnector sqlConnector = new PostgreSqlConnector();
+
+        var sqlCommand =
+            "CREATE TEMP TABLE tempBestPrice AS SELECT product_id, (SELECT product_name FROM products p WHERE p.product_id = s.product_id) as product_name, (SELECT category_name FROM categories c, products p WHERE p.product_id = s.product_id AND p.category_id = c.category_id AND c.user_login='adef_test') AS category_name, extract(month from sale_date) AS month, extract(year from sale_date) AS year, sum(cnt_product) AS sumCnt, sum(sale_price * cnt_product) as sumPrice  FROM sales s GROUP BY product_id, month, year; SELECT product_id, product_name, category_name, year, month, sumCnt, sumPrice FROM tempBestPrice WHERE (sumPrice, year, month) IN (SELECT max(sumPrice), year, month FROM tempBestPrice GROUP BY year, month);";
+
+        NpgsqlCommand command = new NpgsqlCommand(sqlCommand, sqlConnector.GetConnection());
+        
+        sqlConnector.OpenConnection();
+
+        try{
+            NpgsqlDataReader reader = command.ExecuteReader();
+
+            while (reader.Read()){
+                bestSaleProducts.Add(new BestSaleProduct(
+                    reader["product_name"].ToString(),
+                    reader["category_name"].ToString(),
+                    Convert.ToInt32(reader["year"]),
+                    Convert.ToInt32(reader["month"]),
+                    Convert.ToInt32(reader["sumCnt"]),
+                    Convert.ToDecimal(reader["sumPrice"])
+                ));
+            }
+        }
+        catch (Exception e){
+            MessageBox.Show(e.Message);
+        }
+        
+        sqlConnector.CloseConnection();
+        
+        return bestSaleProducts;
+    }
 }

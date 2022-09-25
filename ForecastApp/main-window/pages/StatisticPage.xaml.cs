@@ -7,7 +7,7 @@ using ForecastApp.statistic;
 namespace ForecastApp.main_window.pages;
 
 public partial class StatisticPage : UserControl{
-    private DbModuleStatistic _moduleStatistic = new DbModuleStatistic();
+    private readonly DbModuleStatistic _moduleStatistic = new DbModuleStatistic();
     public StatisticPage(){
         InitializeComponent();
     }
@@ -16,6 +16,8 @@ public partial class StatisticPage : UserControl{
         string date = DateTime.Now.ToString("dd-MM-yyyy");
         
         LoadAllStatistic(date, date);
+        
+        //BestProductsDataGrid.ItemsSource = _moduleStatistic.GetBestCntSaleProductList();
     }
 
     private void DayAllStatBtn_OnClick(object sender, RoutedEventArgs e){
@@ -74,11 +76,14 @@ public partial class StatisticPage : UserControl{
     }
 
     private void BestSortCmbBox_OnSelectionChanged(object sender, SelectionChangedEventArgs e){
-        switch ((string)BestSortCmbBox.SelectedItem){
-            case "по количесву":
-                break;
-            case "по выручке":
-                break;
-        }
+       var selectedItem = (TextBlock)BestSortCmbBox.SelectedItem;
+
+       if (selectedItem.Text == "по количеству"){
+           BestProductsDataGrid.ItemsSource = _moduleStatistic.GetBestCntSaleProductList();
+       }
+       else{
+           BestProductsDataGrid.ItemsSource = _moduleStatistic.GetBestPriceSaleProductList();
+       }
+
     }
 }
