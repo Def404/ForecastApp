@@ -18,7 +18,8 @@
             Grid.Row="0">
             <StackPanel
                 Margin="25,0"
-                Orientation="Horizontal">
+                Orientation="Horizontal"
+                HorizontalAlignment="Center">
 
                 <ComboBox
                     x:Name="CategoryListCmbBox"
@@ -52,6 +53,8 @@
                     Style="{StaticResource MaterialDesignFloatingHintComboBox}">
                     <TextBlock
                         Text="Метод экстраполяции скользящей средней"/>
+                    <TextBlock
+                        Text="Метод линейной регрессии"/>
                 </ComboBox>
                 
 
