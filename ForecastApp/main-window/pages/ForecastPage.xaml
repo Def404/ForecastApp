@@ -44,14 +44,22 @@
                     SelectedValue="{Binding Path=Product}"/>
 
                 <ComboBox
+                    x:Name="ForecastMethodListCmbBox"
                     Margin="25,0"
                     Width="150"
                     materialDesign:HintAssist.Hint="Метод прогнозирование"
-                    Style="{StaticResource MaterialDesignFloatingHintComboBox}"/>
+                    SelectedIndex="-1"
+                    Style="{StaticResource MaterialDesignFloatingHintComboBox}">
+                    <TextBlock
+                        Text="Метод экстраполяции скользящей средней"/>
+                </ComboBox>
+                
 
                 <Button
+                    x:Name="GetPrognosisBtn"
                     Content="Получить прогноз"
-                    Margin="25, 0"/>
+                    Margin="25, 0"
+                    Click="GetForecastBtn_OnClick"/>
             </StackPanel>
         </Grid>
 
@@ -77,13 +85,18 @@
                         Margin="25,15"
                         UniformCornerRadius="10">
                         <StackPanel
-                            Orientation="Horizontal"
+                            Orientation="Vertical"
                             Margin="5,0">
 
                             <TextBlock
                                 Margin="0,5"
                                 Text="Информация"
                                 FontSize="18"/>
+                            <TextBlock
+                                x:Name="InfoTxtBlock"
+                                Margin="0,5"
+                                FontSize="16"
+                                TextWrapping="Wrap"/>
 
                         </StackPanel>
                     </materialDesign:Card>
@@ -96,13 +109,18 @@
                         UniformCornerRadius="10">
 
                         <StackPanel
-                            Orientation="Horizontal"
+                            Orientation="Vertical"
                             Margin="5,0">
 
                             <TextBlock
                                 Margin="0,5"
                                 Text="Прогноз"
                                 FontSize="18"/>
+                            <TextBlock
+                                x:Name="ForecastResultTxtBlk"
+                                Margin="0,  5"
+                                FontSize="16"
+                                TextWrapping="Wrap"/>
 
                         </StackPanel>
                     </materialDesign:Card>
@@ -120,6 +138,7 @@
                     Width="400">
                     
                     <DataGrid
+                        x:Name="CntProductDataGrid"
                         CanUserAddRows="False"
                         AutoGenerateColumns="False"
                         IsReadOnly="True"
@@ -130,7 +149,7 @@
                         <DataGrid.Columns>
 
                             <materialDesign:DataGridTextColumn
-                                Header="Месяц"
+                                Header="Дата"
                                 Width="1*"
                                 CanUserReorder="False"
                                 CanUserResize="False"
@@ -139,7 +158,7 @@
                                 EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}">
                                 <materialDesign:DataGridTextColumn.Binding>
                                     <Binding
-                                        Path="Name" />
+                                        Path="Date" />
                                 </materialDesign:DataGridTextColumn.Binding>
                             </materialDesign:DataGridTextColumn>
 
@@ -153,7 +172,7 @@
                                 EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}">
                                 <materialDesign:DataGridTextColumn.Binding>
                                     <Binding
-                                        Path="Type" />
+                                        Path="Cnt" />
                                 </materialDesign:DataGridTextColumn.Binding>
                             </materialDesign:DataGridTextColumn>
                         </DataGrid.Columns>

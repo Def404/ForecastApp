@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Markup;
 using ForecastApp.categories;
 using ForecastApp.products;
 using ForecastApp.sales;
@@ -22,6 +23,10 @@ public partial class SellPage : UserControl{
 
         var categories = _moduleCategory.GetCategoryList();
         CategoryListCmbBox.ItemsSource = categories;
+
+        SaleDatePicker.Language =
+            XmlLanguage.GetLanguage(System.Globalization.CultureInfo.CurrentCulture.IetfLanguageTag);
+        SaleDatePicker.DisplayDateEnd = DateTime.Now;
     }
 
     private void CategoryListCmbBox_OnSelectionChanged(object sender, SelectionChangedEventArgs e){
