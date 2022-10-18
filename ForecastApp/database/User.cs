@@ -34,7 +34,7 @@ public class User{
         HashPassword = GetHashPassword(password);
     }
 
-    private static string? GetHashPassword(string password){
+    private static string GetHashPassword(string password){
 
         byte[] salt;
         byte[] interPassword;
