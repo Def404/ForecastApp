@@ -4,18 +4,29 @@ using System.IO;
 using System.Security.Cryptography;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using System.Windows;
 
-namespace ForecastApp;
+namespace ForecastApp.database;
 
 public class User{
-    private string Login;
-    private string Name;
-    private string Surname;
-    private string Email;
-    [JsonIgnore]
-    private string HashPassword;
+    
+    private static readonly string AppDate = 
+        Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "ForecastApp");
 
-    public User(string login, string name, string surname, string email, string password){
+    private static readonly string FileName = "user_info.json";
+    
+    
+    private string? Login{ get; set; }
+    private string? Name{ get; set; }
+    private string? Surname{ get; set; }
+    private string? Email{ get; set; }
+    [JsonIgnore]
+    private string? HashPassword{ get; }
+
+    public User(){
+        
+    }
+    public User(string? login, string? name, string? surname, string? email, string password){
         Login = login;
         Name = name;
         Surname = surname;
@@ -23,7 +34,7 @@ public class User{
         HashPassword = GetHashPassword(password);
     }
 
-    private static string GetHashPassword(string password){
+    private static string? GetHashPassword(string password){
 
         byte[] salt;
         byte[] interPassword;
@@ -41,32 +52,57 @@ public class User{
     }
 
     public bool CheckHashPassword(string password){
+        if (HashPassword != null){
+            byte[] hashPassword = Convert.FromBase64String(HashPassword);
 
-        byte[] hashPassword = Convert.FromBase64String(HashPassword);
+            byte[] salt = new byte[0x10];
+            byte[] interHashPassword = new byte[0x20];
 
-        byte[] salt = new byte[0x10];
-        byte[] interHashPassword = new byte[0x20];
-
-        byte[] interPassword; 
+            byte[] interPassword; 
         
-        Buffer.BlockCopy(hashPassword, 1, salt, 0, 0x10);
+            Buffer.BlockCopy(hashPassword, 1, salt, 0, 0x10);
 
        
-        Buffer.BlockCopy(hashPassword,0x11,interHashPassword,0,0x20);
+            Buffer.BlockCopy(hashPassword,0x11,interHashPassword,0,0x20);
 
-        using (Rfc2898DeriveBytes bytes = new Rfc2898DeriveBytes(password, salt, 0x3e8)){
-            interPassword = bytes.GetBytes(0x20);
+            using (Rfc2898DeriveBytes bytes = new Rfc2898DeriveBytes(password, salt, 0x3e8)){
+                interPassword = bytes.GetBytes(0x20);
+            }
+
+            return ByteArrayEqual(interHashPassword, interPassword);
         }
 
-        return ByteArrayEqual(interHashPassword, interPassword);
+        return false;
     }
 
     public void SaveUserToJson(){
+        try{
+            string json = JsonSerializer.Serialize(this);
+            File.WriteAllText(Path.Combine(AppDate, FileName), json);
+        }
+        catch (Exception e){
+            MessageBox.Show(e.Message);
+        }
+        
+    }
 
-        string appDate = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "ForecastApp");
+    public void GetUserFromJson(){
+        try{
+            string json = File.ReadAllText(Path.Combine(AppDate, FileName));
+            User? user = JsonSerializer.Deserialize<User>(json);
+            
+            if (user == null)
+                return;
+            
+            this.Login = user.Login;
+            this.Name = user.Name;
+            this.Surname = user.Surname;
+            this.Email = user.Email;
 
-        string json = JsonSerializer.Serialize(this);
-        File.WriteAllText(Path.Combine(appDate, "user_info.json"), json);
+        }
+        catch (Exception e){
+            MessageBox.Show(e.Message);
+        }
     }
 
     private static bool ByteArrayEqual(byte[] bytes1, byte[] bytes2){
