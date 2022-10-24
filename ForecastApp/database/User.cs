@@ -16,12 +16,12 @@ public class User{
     private static readonly string FileName = "user_info.json";
     
     
-    private string? Login{ get; set; }
-    private string? Name{ get; set; }
-    private string? Surname{ get; set; }
-    private string? Email{ get; set; }
+    public string? Login{ get; set; }
+    public string? Name{ get; set; }
+    public string? Surname{ get; set; }
+    public string? Email{ get; set; }
     [JsonIgnore]
-    private string? HashPassword{ get; }
+    public string? HashPassword{ get; }
 
     public User(){
         
@@ -75,15 +75,26 @@ public class User{
         return false;
     }
 
-    public void SaveUserToJson(){
+    public bool SaveUserToJson(){
+        
         try{
-            string json = JsonSerializer.Serialize(this);
-            File.WriteAllText(Path.Combine(AppDate, FileName), json);
+            if (!Directory.Exists(AppDate)){
+                DirectoryInfo di = Directory.CreateDirectory(AppDate);
+            }
+
+            var path = Path.Combine(AppDate, FileName);
+            using FileStream fileStream = File.Create(path);
+            
+            JsonSerializer.SerializeAsync(fileStream, this);
+            fileStream.DisposeAsync();
+            
+            return true;
         }
         catch (Exception e){
             MessageBox.Show(e.Message);
+            return false;
         }
-        
+
     }
 
     public void GetUserFromJson(){
