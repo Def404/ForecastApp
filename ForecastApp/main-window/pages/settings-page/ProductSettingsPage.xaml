@@ -18,16 +18,15 @@
             Grid.Column="0"
             HorizontalAlignment="Right">
             <Grid.RowDefinitions>
-                <RowDefinition Height="230"/>
-                <RowDefinition Height="190"/>
-                <RowDefinition Height="150"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
 
             <Grid
-                Grid.Row="0"
-                 Width="450">
+                Grid.Row="0">
                 <materialDesign:Card
-                    Margin="25, 15"
+                    Margin="25, 10"
                     UniformCornerRadius="15">
 
                     <StackPanel
@@ -77,7 +76,7 @@
             <Grid
                 Grid.Row="1">
                 <materialDesign:Card
-                    Margin="25, 15"
+                    Margin="25, 10"
                     UniformCornerRadius="15">
 
                     <StackPanel
@@ -124,30 +123,93 @@
 
             <Grid
                 Grid.Row="2">
-                <materialDesign:Card
-                    Margin="25, 15"
-                    UniformCornerRadius="15">
+                
+                <StackPanel
+                    Orientation="Horizontal">
+                    
+                    <materialDesign:Card
+                        Margin="25, 5,10,5"
+                        UniformCornerRadius="15">
 
-                    <StackPanel
-                        Orientation="Vertical">
+                        <StackPanel
+                            Orientation="Vertical">
+                            
+                            <TextBlock
+                                Text="Изменение названия"
+                                HorizontalAlignment="Center"
+                                Margin="25, 5"
+                                FontSize="18"
+                                VerticalAlignment="Top"/>
+                            
+                            <ComboBox
+                                x:Name="ChangeNameCmbBox"
+                                Margin="25,5"
+                                materialDesign:HintAssist.Hint="Название продукта"
+                                Style="{StaticResource MaterialDesignFloatingHintComboBox}"
+                                ItemsSource="{Binding Path=Product}"
+                                DisplayMemberPath="Name"
+                                SelectedValuePath="Name"
+                                SelectedValue="{Binding Path=Product}"/>
 
-                        <TextBlock
-                            Text="Изменение товара"
-                            HorizontalAlignment="Center"
-                            Margin="25, 5"
-                            FontSize="18"
-                            VerticalAlignment="Top"/>
+                            <TextBox
+                                x:Name="ChangeNameTxtBox"
+                                Margin="25, 5"
+                                materialDesign:HintAssist.Hint="Новое название"
+                                Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
 
-                        
+                            <Button
+                                x:Name="ChangeNameProductBtn"
+                                Margin="20, 10"
+                                HorizontalAlignment="Center"
+                                Content="Изменить"
+                                Width="120"
+                                Cursor="Hand"
+                                Click="ChangeNameProductBtn_OnClick"/>
+                        </StackPanel>
+                    </materialDesign:Card>
+                    
+                    <materialDesign:Card
+                        Margin="10, 5,25,5"
+                        UniformCornerRadius="15">
 
-                        <Button
-                            Margin="20"
-                            HorizontalAlignment="Center"
-                            Content="Изменить"
-                            Width="120"
-                            Cursor="Hand"/>
-                    </StackPanel>
-                </materialDesign:Card>
+                        <StackPanel
+                            Orientation="Vertical">
+                            
+                            <TextBlock
+                                Text="Изменение цены"
+                                HorizontalAlignment="Center"
+                                Margin="25, 5"
+                                FontSize="18"
+                                VerticalAlignment="Top"/>
+                            
+                            <ComboBox
+                                x:Name="ChangePriceCmbBox"
+                                Margin="25,5"
+                                materialDesign:HintAssist.Hint="Название продукта"
+                                Style="{StaticResource MaterialDesignFloatingHintComboBox}"
+                                ItemsSource="{Binding Path=Product}"
+                                DisplayMemberPath="Name"
+                                SelectedValuePath="Name"
+                                SelectedValue="{Binding Path=Product}"/>
+
+                            <TextBox
+                                x:Name="ChangePriceTxtBox"
+                                Margin="25, 5"
+                                materialDesign:HintAssist.Hint="Новая цена"
+                                Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
+                            
+                            <Button
+                                x:Name="ChangePriceBtn"
+                                Margin="20, 10"
+                                HorizontalAlignment="Center"
+                                Content="Изменить"
+                                Width="120"
+                                Cursor="Hand"
+                                Click="ChangePriceBtn_OnClick"/>
+                        </StackPanel>
+                    </materialDesign:Card>
+                </StackPanel>
+                
             </Grid>
         </Grid>
 

@@ -18,6 +18,8 @@ public partial class ProductSettingsPage : UserControl{
 
         var products = _moduleProduct.GetProductList();
         ProductDataGrid.ItemsSource = products;
+        ChangeNameCmbBox.ItemsSource = products;
+        ChangePriceCmbBox.ItemsSource = products;
 
         var categories = _moduleCategory.GetCategoryList();
         AddCategoryListCmbBox.ItemsSource = categories;
@@ -73,12 +75,7 @@ public partial class ProductSettingsPage : UserControl{
         
         UpdateForm();
     }
-
-    private void UpdateForm(){
-        var products = _moduleProduct.GetProductList();
-        ProductDataGrid.ItemsSource = products;
-    }
-
+    
     private void DelCategoryListCmbBox_OnSelectionChanged(object sender, SelectionChangedEventArgs e){
      
         var category = (Category)DelCategoryListCmbBox.SelectedItem;
@@ -86,5 +83,46 @@ public partial class ProductSettingsPage : UserControl{
             var categoryName = category.Name;
             DelProductListCmbBox.ItemsSource = _moduleProduct.GetProductsOfCatList(categoryName);
         }
+    }
+
+    private void ChangeNameProductBtn_OnClick(object sender, RoutedEventArgs e){
+        
+        if (ChangeNameCmbBox.SelectedIndex == -1 ||
+            ChangeNameTxtBox.Text.Trim() == ""){
+            MessageBox.Show("Выберете продукт");
+            return;
+        }
+
+        var product = (Product)ChangeNameCmbBox.SelectedItem;
+        _moduleProduct.UpdateProductName(product.Name, ChangeNameTxtBox.Text.Trim());
+
+        ChangeNameCmbBox.SelectedIndex = -1;
+        ChangeNameTxtBox.Clear();
+        
+        UpdateForm();
+    }
+
+    private void ChangePriceBtn_OnClick(object sender, RoutedEventArgs e){
+        if (ChangePriceCmbBox.SelectedIndex == -1 ||
+            ChangePriceTxtBox.Text.Trim() == ""){
+            MessageBox.Show("Выберете продукт");
+            return;
+        }
+        
+        var product = (Product)ChangePriceCmbBox.SelectedItem;
+        _moduleProduct.UpdateProductPrice(product.Name, Convert.ToDecimal(ChangePriceTxtBox.Text.Trim()));
+
+        ChangePriceCmbBox.SelectedIndex = -1;
+        ChangePriceTxtBox.Clear();
+        
+        UpdateForm();
+    }
+    
+    private void UpdateForm(){
+        var products = _moduleProduct.GetProductList();
+        ProductDataGrid.ItemsSource = products;
+        ChangeNameCmbBox.ItemsSource = products;
+        ChangePriceCmbBox.ItemsSource = products;
+        
     }
 }

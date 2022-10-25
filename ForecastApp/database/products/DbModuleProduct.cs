@@ -164,4 +164,55 @@ public class DbModuleProduct{
         
         sqlConnector.CloseConnection();
     }
+
+    public void UpdateProductName(string oldProductName, string newProductName){
+        
+        var login = MainWindow._user.Login;
+
+        PostgreSqlConnector sqlConnector = new PostgreSqlConnector();
+
+        var sqlCommand = 
+            "UPDATE products SET product_name = @newPr WHERE product_name = @oldPr AND user_login = @l";
+        
+        NpgsqlCommand command = new NpgsqlCommand(sqlCommand, sqlConnector.GetConnection());
+        command.Parameters.AddWithValue("newPr", newProductName);
+        command.Parameters.AddWithValue("oldPr", oldProductName);
+        command.Parameters.AddWithValue("l", login);
+        
+        sqlConnector.OpenConnection();
+
+        try{
+            command.ExecuteNonQuery();
+        }
+        catch (Exception e){
+            MessageBox.Show(e.Message);
+        }
+        
+        sqlConnector.CloseConnection();
+    }
+
+    public void UpdateProductPrice(string productName, decimal newPrice){
+        var login = MainWindow._user.Login;
+        
+        PostgreSqlConnector sqlConnector = new PostgreSqlConnector();
+
+        var sqlCommand = 
+            "UPDATE products SET price = @newPrice WHERE product_name = @p AND user_login = @l";
+        
+        NpgsqlCommand command = new NpgsqlCommand(sqlCommand, sqlConnector.GetConnection());
+        command.Parameters.AddWithValue("newPrice", newPrice);
+        command.Parameters.AddWithValue("p", productName);
+        command.Parameters.AddWithValue("l", login);
+        
+        sqlConnector.OpenConnection();
+
+        try{
+            command.ExecuteNonQuery();
+        }
+        catch (Exception e){
+            MessageBox.Show(e.Message);
+        }
+        
+        sqlConnector.CloseConnection();
+    }
 }
