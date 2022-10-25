@@ -43,7 +43,9 @@
                 Background="{x:Null}"
                 Foreground="Black"
                 BorderThickness="0,0,0,1"
-                Style="{StaticResource MaterialDesignRaisedSecondaryButton}" Cursor="Hand"/>
+                Style="{StaticResource MaterialDesignRaisedSecondaryButton}" 
+                Cursor="Hand"
+                Click="ButtonBase_OnClick"/>
         </StackPanel>
 
         <Grid

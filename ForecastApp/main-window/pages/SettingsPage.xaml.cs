@@ -8,6 +8,7 @@ public partial class SettingsPage : UserControl{
     
     private static readonly CategorySettingsPage _categorySettingsPage = new CategorySettingsPage();
     private static readonly ProductSettingsPage _productSettingsPage = new ProductSettingsPage();
+    private static readonly ProfileSettingsPage _profileSettingsPage = new ProfileSettingsPage();
     public SettingsPage(){
         InitializeComponent();
     }
@@ -20,5 +21,10 @@ public partial class SettingsPage : UserControl{
     private void ProductSettingsPageBtn_OnClick(object sender, RoutedEventArgs e){
         RenderSubPage.Children.Clear();
         RenderSubPage.Children.Add(_productSettingsPage);
+    }
+
+    private void ButtonBase_OnClick(object sender, RoutedEventArgs e){
+        RenderSubPage.Children.Clear();
+        RenderSubPage.Children.Add(_profileSettingsPage);
     }
 }
