@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
              xmlns:local="clr-namespace:ForecastApp.main_window.pages"
              mc:Ignorable="d"
              d:DesignHeight="700" d:DesignWidth="1100"
@@ -277,25 +278,52 @@
                         Grid.Row="1"
                         Orientation="Horizontal">
                             <ComboBox
-                            Grid.Row="1"
-                            Margin="25,0"
-                            Width="150"
-                            HorizontalAlignment="Left"
-                            materialDesign:HintAssist.Hint="Категория"
-                            Style="{StaticResource MaterialDesignFloatingHintComboBox}"/>
+                                x:Name="CategoryDiagramCmbBox"
+                                Margin="25,0"
+                                Width="150"
+                                HorizontalAlignment="Left"
+                                materialDesign:HintAssist.Hint="Категория"
+                                ItemsSource="{Binding Path=Category}"
+                                DisplayMemberPath="Name"
+                                SelectedValuePath="Name"
+                                SelectedValue="{Binding Path=Category}"
+                                Style="{StaticResource MaterialDesignFloatingHintComboBox}"
+                                SelectionChanged="CategoryDiagramCmbBox_OnSelectionChanged"/>
+                            
                             <ComboBox
-                            Grid.Row="1"
-                            Margin="25,0"
-                            Width="150"
-                            HorizontalAlignment="Left"
-                            materialDesign:HintAssist.Hint="Название"
-                            Style="{StaticResource MaterialDesignFloatingHintComboBox}"/>
+                                x:Name="ProductDiagramCmbBox"
+                                Margin="25,0"
+                                Width="150"
+                                HorizontalAlignment="Left"
+                                materialDesign:HintAssist.Hint="Название"
+                                ItemsSource="{Binding Path=Product}"
+                                DisplayMemberPath="Name"
+                                SelectedValuePath="Name"
+                                SelectedValue="{Binding Path=Product}"
+                                Style="{StaticResource MaterialDesignFloatingHintComboBox}"/>
+                            <Button
+                                x:Name="CreatedDiagramBtn"
+                                Width="30"
+                                Height="30"
+                                Style="{StaticResource MaterialDesignFloatingActionMiniButton}"
+                                Margin="10, 0"
+                                Click="CreatedDiagramBtn_OnClick">
+                                <materialDesign:PackIcon
+                                    Kind="Done"/>
+                            </Button>
                         </StackPanel>
 
                         <Grid
-                        Grid.Row="2">
-
-                        </Grid>
+                            Grid.Row="2">
+                            <lvc:CartesianChart Series="{Binding SeriesCollection}" LegendLocation="Right" >
+                                <lvc:CartesianChart.AxisY>
+                                    <lvc:Axis Title="Продажи" LabelFormatter="{Binding YFormatter}"></lvc:Axis>
+                                </lvc:CartesianChart.AxisY>
+                                <lvc:CartesianChart.AxisX>
+                                    <lvc:Axis Title="Дата" Labels="{Binding Labels}"></lvc:Axis>
+                                </lvc:CartesianChart.AxisX>
+                            </lvc:CartesianChart>
+                            </Grid>
                     </Grid>
                 </materialDesign:Card>
              
