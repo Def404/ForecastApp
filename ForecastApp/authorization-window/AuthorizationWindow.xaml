@@ -7,7 +7,7 @@
         xmlns:local="clr-namespace:ForecastApp.authorization_window"
         mc:Ignorable="d"
         Title="AuthorizationWindow" 
-        Height="420" Width="300"
+        Height="420" Width="350"
         WindowStartupLocation="CenterScreen"
         Background="{x:Null}"
         ResizeMode="NoResize">
@@ -17,7 +17,7 @@
             UniformCornerRadius="0">
             <StackPanel
                 Orientation="Vertical"
-                Margin="15,0"
+                Margin="30,0"
                 VerticalAlignment="Center">
                 
                 <TextBlock
@@ -34,20 +34,29 @@
                     x:Name="PasswordBox"
                     Margin="0,10,0,10"
                     materialDesign:HintAssist.Hint="Пароль"/>
+                
                 <Button
                     x:Name="AuthBtn"
                     Content="Вход"
-                    Margin="0, 25,0,10"/>
+                    Margin="0, 25,0,10"
+                    Click="AuthBtn_OnClick"/>
                 
                 <Button
                     x:Name="RegBtn"
                     Content="Нет аккаунта"
                     Margin="0, 10,0,25"
-                    Style="{StaticResource MaterialDesignFlatButton}"/>
+                    Style="{StaticResource MaterialDesignFlatButton}"
+                    Click="RegBtn_OnClick"/>
                 
-                <TextBlock
-                    Text="ERRRRRROOOOOOOOOR MESSAAAGE"
-                    Margin="0,10,0, 35"/>
+                <materialDesign:Card
+                    x:Name="ErrorCard"
+                    Background="Khaki"
+                    Visibility="Hidden">
+                    <TextBlock
+                        x:Name="ErrorTxtBLock"
+                        Margin="10"
+                        FontWeight="Medium"/>
+                </materialDesign:Card>
             </StackPanel>
         </materialDesign:Card>
     </Grid>
