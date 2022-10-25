@@ -1,14 +1,13 @@
-﻿using System;
-using System.Text.RegularExpressions;
+﻿using System.Text.RegularExpressions;
 using System.Windows;
-using System.Windows.Input;
 using ForecastApp.database;
-using ForecastApp.database.registration;
+using ForecastApp.database.user;
 
 namespace ForecastApp.registration_window;
 
 public partial class RegistrationWindow : Window{
-    private DBModuleRegistration _moduleRegistration = new DBModuleRegistration();
+    
+    private DbModuleUser _moduleUser = new DbModuleUser();
     public RegistrationWindow(){
         InitializeComponent();
     }
@@ -50,7 +49,7 @@ public partial class RegistrationWindow : Window{
             return;
         }
 
-        if (_moduleRegistration.CheckUser(LoginTxtBox.Text.Trim())){
+        if (_moduleUser.CheckUser(LoginTxtBox.Text.Trim())){
             ErrorCard.Visibility = Visibility.Visible;
             ErrorTxtBLock.Text = "Пользователь уже сущесвует!";
             return;
@@ -64,7 +63,7 @@ public partial class RegistrationWindow : Window{
             PasswordBox.Password.Trim());
         
 
-        if (_moduleRegistration.AddUser(user) == 1){
+        if (_moduleUser.InsertUser(user) == 1){
             
             if (user.SaveUserToJson() != true) return;
             
@@ -74,10 +73,9 @@ public partial class RegistrationWindow : Window{
             Close();
         }
         else{
-            MessageBox.Show("Error");
+            ErrorCard.Visibility = Visibility.Visible;
+            ErrorTxtBLock.Text = "Ошибка регистрации";
+            return;
         }
-      
-        
-       
     }
 }
