@@ -62,7 +62,19 @@ public partial class CategorySettingsPage : UserControl{
     }
 
     private void UpdateCategoryBtn_OnClick(object sender, RoutedEventArgs e){
+        if (ChangeCategoryListCmbBox.SelectedIndex == -1 ||
+            ChangeCategoryNameTxtBox.Text.Trim() == ""){
+            MessageBox.Show("Укажите название категории");
+            return;
+        }
         
+        var category = (Category)ChangeCategoryListCmbBox.SelectedItem;
+        
+        _moduleCategory.UpdateCategory(category.Name, ChangeCategoryNameTxtBox.Text.Trim());
+        ChangeCategoryListCmbBox.SelectedIndex = -1;
+        ChangeCategoryNameTxtBox.Clear();
+        
+        UpdateForm();
     }
 
     private void UpdateForm(){

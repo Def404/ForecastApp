@@ -121,4 +121,30 @@ public class DbModuleCategory{
         
         sqlConnector.CloseConnection();
     }
+
+    public void UpdateCategory(string oldCategoryName, string newCategoryName){
+        
+        var login = MainWindow._user.Login;
+        
+        PostgreSqlConnector sqlConnector = new PostgreSqlConnector();
+
+        var sqlCommand = 
+            "UPDATE categories SET category_name = @newCat WHERE category_name = @oldCat AND user_login = @l";
+        
+        NpgsqlCommand command = new NpgsqlCommand(sqlCommand, sqlConnector.GetConnection());
+        command.Parameters.AddWithValue("newCat", newCategoryName);
+        command.Parameters.AddWithValue("oldCat", oldCategoryName);
+        command.Parameters.AddWithValue("l", login);
+        
+        sqlConnector.OpenConnection();
+
+        try{
+            command.ExecuteNonQuery();
+        }
+        catch (Exception e){
+            MessageBox.Show(e.Message);
+        }
+        
+        sqlConnector.CloseConnection();
+    }
 }
