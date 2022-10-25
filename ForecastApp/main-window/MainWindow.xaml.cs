@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using ForecastApp.authorization_window;
 using ForecastApp.main_window.pages;
 
 
@@ -41,6 +42,14 @@ namespace ForecastApp{
         private void SettingsPageBtn_OnClick(object sender, RoutedEventArgs e){
             RenderPage.Children.Clear();
             RenderPage.Children.Add(_settingsPage);
+        }
+
+        private void OutPageBtn_OnClick(object sender, RoutedEventArgs e){
+
+            AuthorizationWindow authorizationWindow = new AuthorizationWindow();
+            authorizationWindow.Show();
+            
+            Close();
         }
     }
 }
