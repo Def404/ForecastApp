@@ -11,9 +11,12 @@ public class DbModuleUser{
         int result = 0;
 
         PostgreSqlConnector sqlConnector = new PostgreSqlConnector();
-
-        var sqlCommand = $"SELECT CAST(count(*) AS BIT) AS cnt FROM users WHERE login='{userLogin}'";
+        
+        var sqlCommand = 
+            "SELECT CAST(count(*) AS BIT) AS cnt FROM users WHERE login=@l";
+        
         NpgsqlCommand command = new NpgsqlCommand(sqlCommand, sqlConnector.GetConnection());
+        command.Parameters.AddWithValue("l", userLogin);
         
         sqlConnector.OpenConnection();
 
@@ -35,12 +38,20 @@ public class DbModuleUser{
         
         PostgreSqlConnector sqlConnector = new PostgreSqlConnector();
 
-        var sqlCommand = $"INSERT INTO users (login,  user_name, user_surname, email, password) VALUES ('{user.Login}', '{user.Name}', '{user.Surname}', '{user.Email}', crypt('{user.HashPassword}', gen_salt('md5')))";
+        var sqlCommand = 
+            "INSERT INTO users (login,  user_name, user_surname, email, password) VALUES (@l, @name, @surname, @email, crypt(@pas, gen_salt('md5')))";
 
         NpgsqlCommand command = new NpgsqlCommand(sqlCommand, sqlConnector.GetConnection());
+        command.Parameters.AddWithValue("l", user.Login);
+        command.Parameters.AddWithValue("name", user.Name);
+        command.Parameters.AddWithValue("surname", user.Surname);
+        command.Parameters.AddWithValue("email", user.Email);
+        command.Parameters.AddWithValue("pas", user.HashPassword);
         
         sqlConnector.OpenConnection();
+        
         var result = -1;
+        
         try{ 
             result = command.ExecuteNonQuery();
         }
@@ -57,13 +68,16 @@ public class DbModuleUser{
         
         PostgreSqlConnector sqlConnector = new PostgreSqlConnector();
 
-        var sqlCommand = $"SELECT login, user_name, user_surname, email, password FROM  users WHERE login='{login}' AND password = crypt('{password}', password)";
+        var sqlCommand = 
+            "SELECT login, user_name, user_surname, email, password FROM  users WHERE login=@l AND password = crypt(@pas, password)";
         
         NpgsqlCommand command = new NpgsqlCommand(sqlCommand, sqlConnector.GetConnection());
+        command.Parameters.AddWithValue("l",login);
+        command.Parameters.AddWithValue("pas", password);
         
         sqlConnector.OpenConnection();
 
-        User user = null;
+        User? user = null;
 
         try{
             NpgsqlDataReader reader = command.ExecuteReader();

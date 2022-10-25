@@ -6,16 +6,20 @@ using Npgsql;
 namespace ForecastApp.products;
 
 public class DbModuleProduct{
-
+    
     public List<Product> GetProductList(){
 
-        List<Product> _products = new List<Product>();
+        List<Product> products = new List<Product>();
+        
+        var login = MainWindow._user.Login;
 
         PostgreSqlConnector sqlConnector = new PostgreSqlConnector();
 
         var sqlCommand =
-            "SELECT p.product_name, c.category_name, p.price FROM products p, categories c  WHERE  p.category_id = c.category_id AND p.user_login = 'adef_test'";
+            "SELECT p.product_name, c.category_name, p.price FROM products p, categories c  WHERE  p.category_id = c.category_id AND p.user_login = @l";
+        
         NpgsqlCommand command = new NpgsqlCommand(sqlCommand, sqlConnector.GetConnection());
+        command.Parameters.AddWithValue("l", login);
 
         sqlConnector.OpenConnection();
 
@@ -25,7 +29,7 @@ public class DbModuleProduct{
             var index = 1;
 
             while (reader.Read()){
-                _products.Add(new Product(
+                products.Add(new Product(
                     index++,
                     reader["product_name"].ToString(),
                     reader["category_name"].ToString(),
@@ -38,17 +42,23 @@ public class DbModuleProduct{
         
         sqlConnector.CloseConnection();
         
-        return _products;
+        return products;
     }
 
     public void SetProduct(string productName, string category, decimal price){
+        
+        var login = MainWindow._user.Login;
 
         PostgreSqlConnector sqlConnector = new PostgreSqlConnector();
 
         var sqlCommand =
-            $"INSERT INTO products(product_name, category_id, price, user_login) VALUES ('{productName}', (SELECT category_id FROM categories WHERE categories.category_name = '{category}' AND categories.user_login = 'adef_test'), {price}, 'adef_test')";
+            "INSERT INTO products(product_name, category_id, price, user_login) VALUES (@p, (SELECT category_id FROM categories WHERE categories.category_name = @c AND categories.user_login = @l), @pr, @l)";
 
         NpgsqlCommand command = new NpgsqlCommand(sqlCommand, sqlConnector.GetConnection());
+        command.Parameters.AddWithValue("p", productName);
+        command.Parameters.AddWithValue("c", category);
+        command.Parameters.AddWithValue("pr", price);
+        command.Parameters.AddWithValue("l", login);
         
         sqlConnector.OpenConnection();
 
@@ -62,15 +72,21 @@ public class DbModuleProduct{
         sqlConnector.CloseConnection();
     }
 
-    public bool CheckExistence(string productName, string categoryName){
+    public bool CheckExistence(string productName, string category){
+        
         bool result;
+        
+        var login = MainWindow._user.Login;
 
         PostgreSqlConnector sqlConnector = new PostgreSqlConnector();
 
         var sqlCommand =
-            $"SELECT  EXISTS(SELECT * FROM products p WHERE p.product_name = '{productName}' AND p.category_id  = (SELECT category_id FROM categories WHERE category_name = '{categoryName}') AND p.user_login = 'adef_test')";
+            "SELECT  EXISTS(SELECT * FROM products p WHERE p.product_name = @p AND p.category_id  = (SELECT category_id FROM categories WHERE category_name = @c) AND p.user_login = @l)";
 
         NpgsqlCommand command = new NpgsqlCommand(sqlCommand, sqlConnector.GetConnection());
+        command.Parameters.AddWithValue("p", productName);
+        command.Parameters.AddWithValue("c", category);
+        command.Parameters.AddWithValue("l",login);
         
         sqlConnector.OpenConnection();
 
@@ -84,14 +100,20 @@ public class DbModuleProduct{
         return result;
     }
 
-    public List<Product> GetProductsOfCatList(string categoryName){
-        List<Product> _products = new List<Product>();
+    public List<Product> GetProductsOfCatList(string category){
+        
+        List<Product> products = new List<Product>();
+        
+        var login = MainWindow._user.Login;
 
         PostgreSqlConnector sqlConnector = new PostgreSqlConnector();
 
         var sqlCommand =
-            $"SELECT p.product_name, c.category_name, p.price FROM products p, categories c WHERE p.category_id = c.category_id AND c.category_name = '{categoryName}' AND p.user_login = 'adef_test'";
+            "SELECT p.product_name, c.category_name, p.price FROM products p, categories c WHERE p.category_id = c.category_id AND c.category_name = @c AND p.user_login = @l";
+        
         NpgsqlCommand command = new NpgsqlCommand(sqlCommand, sqlConnector.GetConnection());
+        command.Parameters.AddWithValue("c", category);
+        command.Parameters.AddWithValue("l", login);
 
         sqlConnector.OpenConnection();
 
@@ -101,7 +123,7 @@ public class DbModuleProduct{
             var index = 1;
 
             while (reader.Read()){
-                _products.Add(new Product(
+                products.Add(new Product(
                     index++,
                     reader["product_name"].ToString(),
                     reader["category_name"].ToString(),
@@ -114,17 +136,22 @@ public class DbModuleProduct{
         
         sqlConnector.CloseConnection();
         
-        return _products;
+        return products;
     }
 
-    public void DelProduct(string categoryName, string productName){
+    public void DelProduct(string productName, string category){
+        
+        var login = MainWindow._user.Login;
 
         PostgreSqlConnector sqlConnector = new PostgreSqlConnector();
 
         var sqlCommand =
-            $"DELETE FROM products WHERE product_name='{productName}' AND category_id = (SELECT category_id FROM categories WHERE category_name='{categoryName}' AND user_login='adef_test')";
+            "DELETE FROM products WHERE product_name=@p AND category_id = (SELECT category_id FROM categories WHERE category_name=@c AND user_login=@l)";
 
         NpgsqlCommand command = new NpgsqlCommand(sqlCommand, sqlConnector.GetConnection());
+        command.Parameters.AddWithValue("p", productName);
+        command.Parameters.AddWithValue("c", category);
+        command.Parameters.AddWithValue("l", login);
         
         sqlConnector.OpenConnection();
 

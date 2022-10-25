@@ -6,14 +6,20 @@ using Npgsql;
 namespace ForecastApp.categories;
 
 public class DbModuleCategory{
+    
     public List<Category> GetCategoryList(){
         
         List<Category> _categories = new List<Category>();
 
+        var login = MainWindow._user.Login;
+        
         PostgreSqlConnector sqlConnector = new PostgreSqlConnector();
             
-        var sqlCommand = "SELECT * FROM categories WHERE user_login = 'adef_test'";
+        var sqlCommand =
+            "SELECT * FROM categories WHERE user_login = @l";
+        
         NpgsqlCommand command = new NpgsqlCommand(sqlCommand, sqlConnector.GetConnection());
+        command.Parameters.AddWithValue("l", login);
             
         sqlConnector.OpenConnection();
 
@@ -37,11 +43,17 @@ public class DbModuleCategory{
     }
 
     public void SetCategory(string categoryName){
-
+        
+        var login = MainWindow._user.Login;
+        
         PostgreSqlConnector sqlConnector = new PostgreSqlConnector();
-
-        var sqlCommand = $"INSERT INTO categories(category_name, user_login) VALUES ('{categoryName}', (SELECT login FROM users WHERE login = 'adef_test'))";
+        
+        var sqlCommand = 
+            "INSERT INTO categories(category_name, user_login) VALUES (@c, (SELECT login FROM users WHERE login = @l))";
+        
         NpgsqlCommand command = new NpgsqlCommand(sqlCommand, sqlConnector.GetConnection());
+        command.Parameters.AddWithValue("c", categoryName);
+        command.Parameters.AddWithValue("l", login);
         
         sqlConnector.OpenConnection();
 
@@ -59,12 +71,16 @@ public class DbModuleCategory{
 
         bool result;
 
+        var login = MainWindow._user.Login;
+        
         PostgreSqlConnector sqlConnector = new PostgreSqlConnector();
-
+        
         var sqlCommand =
-            $"SELECT EXISTS(SELECT category_name FROM categories WHERE category_name = '{categoryName}' AND user_login = 'adef_test')";
+            "SELECT EXISTS(SELECT category_name FROM categories WHERE category_name = @c AND user_login = @l)";
 
         NpgsqlCommand command = new NpgsqlCommand(sqlCommand, sqlConnector.GetConnection());
+        command.Parameters.AddWithValue("c", categoryName);
+        command.Parameters.AddWithValue("l", login);
         
         sqlConnector.OpenConnection();
 
@@ -75,16 +91,24 @@ public class DbModuleCategory{
             MessageBox.Show(e.Message);
             result = true;
         }
-
+        
+        sqlConnector.CloseConnection();
+        
         return result;
     }
 
     public void DelCategory(string categoryName){
 
+        var login = MainWindow._user.Login;
+        
         PostgreSqlConnector sqlConnector = new PostgreSqlConnector();
 
-        var sqlCommand = $"DELETE FROM categories WHERE category_name = '{categoryName}' AND user_login='adef_test'";
+        var sqlCommand = 
+            "DELETE FROM categories WHERE category_name = @c AND user_login=@l";
+        
         NpgsqlCommand command = new NpgsqlCommand(sqlCommand, sqlConnector.GetConnection());
+        command.Parameters.AddWithValue("c", categoryName);
+        command.Parameters.AddWithValue("l", login);
         
         sqlConnector.OpenConnection();
 

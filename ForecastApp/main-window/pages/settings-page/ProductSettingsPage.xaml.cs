@@ -66,7 +66,7 @@ public partial class ProductSettingsPage : UserControl{
 
         var category = (Category)DelCategoryListCmbBox.SelectedItem;
         var product = (Product)DelProductListCmbBox.SelectedItem;
-        _moduleProduct.DelProduct(category.Name, product.Name);
+        _moduleProduct.DelProduct(product.Name, category.Name);
 
         DelCategoryListCmbBox.SelectedIndex = -1;
         DelProductListCmbBox.SelectedIndex = -1;
