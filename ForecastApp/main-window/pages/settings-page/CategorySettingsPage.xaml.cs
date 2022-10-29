@@ -50,7 +50,7 @@ public partial class CategorySettingsPage : UserControl{
         }
 
         var category = (Category)DelCategoryListCmbBox.SelectedItem;
-        if (_moduleProduct.GetProductsOfCatList(category.Name).Count > 0){
+        if (_moduleProduct.GetProductsOfCatList(category.Id).Count > 0){
             MessageBox.Show("У категории есть товары");
             return;
         }

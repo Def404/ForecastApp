@@ -26,8 +26,8 @@ public partial class ForecastPage : UserControl{
 
         var category = (Category)CategoryListCmbBox.SelectedItem;
         if (category is not null){
-            var categoryName = category.Name;
-            ProductNameListCmbBox.ItemsSource = _moduleProduct.GetProductsOfCatList(categoryName);
+            var categoryId = category.Id;
+            ProductNameListCmbBox.ItemsSource = _moduleProduct.GetProductsOfCatList(categoryId);
         }
     }
 
@@ -39,13 +39,10 @@ public partial class ForecastPage : UserControl{
             return;
         }
         
-        var category = ((Category)CategoryListCmbBox.SelectedItem).Name;
+        var category = Convert.ToInt32(((Product)ProductNameListCmbBox.SelectedItem).Category);
         var product = ((Product)ProductNameListCmbBox.SelectedItem).Name;
 
         List<ProductCntMonth> productCntList;
-        
-      
-       
         
         switch (ForecastMethodListCmbBox.SelectedIndex){
             case 0:

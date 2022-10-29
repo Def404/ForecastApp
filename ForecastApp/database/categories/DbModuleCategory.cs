@@ -29,7 +29,9 @@ public class DbModuleCategory{
             var index = 1;
 
             while (reader.Read()){
-                _categories.Add(new Category(index++,reader["category_name"].ToString()));
+                _categories.Add(new Category(index++,
+                    Convert.ToInt32(reader["category_id"]), 
+                    reader["category_name"].ToString()));
             }
         }
         catch (Exception e){

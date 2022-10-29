@@ -46,21 +46,17 @@ public class DbModuleSale{
         return sales;
     }
 
-    public void SetSale(string productName, string category, int cntProduct, string saleDate){
+    public void SetSale(int productID, int cntProduct, string saleDate){
         
-        var login = MainWindow._user.Login;
-
         PostgreSqlConnector sqlConnector = new PostgreSqlConnector();
 
         var sqlCommand =
-            "CREATE TEMP TABLE temp_table AS SELECT product_id, price FROM products WHERE product_name='@p AND products.user_login=@l AND category_id= (SELECT category_id FROM categories WHERE category_name =@c AND categories.user_login=@l); INSERT INTO sales (product_id, cnt_product, sale_date, sale_price) VALUES ((SELECT product_id FROM temp_table), @cntPr, to_date(@slDate, 'MM-dd-yyyy'), (SELECT price FROM temp_table)); DROP TABLE temp_table;";
+            "INSERT INTO sales (product_id, cnt_product, sale_date, sale_price) VALUES ((@pId), @cntPr, to_date(@slDate, 'MM-dd-yyyy'), (SELECT price FROM products p WHERE p.product_id=@pId));";
 
         NpgsqlCommand command = new NpgsqlCommand(sqlCommand, sqlConnector.GetConnection());
-        command.Parameters.AddWithValue("p", productName);
-        command.Parameters.AddWithValue("c", category);
+        command.Parameters.AddWithValue("pId", productID);
         command.Parameters.AddWithValue("cntPr", cntProduct);
         command.Parameters.AddWithValue("slDate", saleDate);
-        command.Parameters.AddWithValue("l", login);
         
         sqlConnector.OpenConnection();
 

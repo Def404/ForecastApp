@@ -115,7 +115,7 @@ public partial class StatisticPage : UserControl{
         }
 
         var product = (Product)ProductDiagramCmbBox.SelectedItem;
-        List<SaleProduct> saleProducts = _moduleStatistic.GetSaleProducts(product.Name);
+        List<SaleProduct> saleProducts = _moduleStatistic.GetSaleProducts(product.Id);
 
         var maxDate = saleProducts[0].Date;
         var minDate = saleProducts[^1].Date;
@@ -166,8 +166,8 @@ public partial class StatisticPage : UserControl{
         
         var category = (Category)CategoryDiagramCmbBox.SelectedItem;
         if (category is not null){
-            var categoryName = category.Name;
-            ProductDiagramCmbBox.ItemsSource = _moduleProduct.GetProductsOfCatList(categoryName);
+            var categoryId = category.Id;
+            ProductDiagramCmbBox.ItemsSource = _moduleProduct.GetProductsOfCatList(categoryId);
         }
     }
 }

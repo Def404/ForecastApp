@@ -16,7 +16,7 @@ public class DbModuleProduct{
         PostgreSqlConnector sqlConnector = new PostgreSqlConnector();
 
         var sqlCommand =
-            "SELECT p.product_name, c.category_name, p.price FROM products p, categories c  WHERE  p.category_id = c.category_id AND p.user_login = @l";
+            "SELECT p.product_id, p.product_name, c.category_name, p.price FROM products p, categories c  WHERE  p.category_id = c.category_id AND p.user_login = @l";
         
         NpgsqlCommand command = new NpgsqlCommand(sqlCommand, sqlConnector.GetConnection());
         command.Parameters.AddWithValue("l", login);
@@ -31,6 +31,7 @@ public class DbModuleProduct{
             while (reader.Read()){
                 products.Add(new Product(
                     index++,
+                    Convert.ToInt32(reader["product_id"]),
                     reader["product_name"].ToString(),
                     reader["category_name"].ToString(),
                     (decimal)reader["price"]));
@@ -72,7 +73,7 @@ public class DbModuleProduct{
         sqlConnector.CloseConnection();
     }
 
-    public bool CheckExistence(string productName, string category){
+    public bool CheckExistence(string productName){
         
         bool result;
         
@@ -81,11 +82,10 @@ public class DbModuleProduct{
         PostgreSqlConnector sqlConnector = new PostgreSqlConnector();
 
         var sqlCommand =
-            "SELECT  EXISTS(SELECT * FROM products p WHERE p.product_name = @p AND p.category_id  = (SELECT category_id FROM categories WHERE category_name = @c) AND p.user_login = @l)";
+            "SELECT EXISTS(SELECT * FROM products p  WHERE p.product_name=@p AND p.user_login = @l);";
 
         NpgsqlCommand command = new NpgsqlCommand(sqlCommand, sqlConnector.GetConnection());
         command.Parameters.AddWithValue("p", productName);
-        command.Parameters.AddWithValue("c", category);
         command.Parameters.AddWithValue("l",login);
         
         sqlConnector.OpenConnection();
@@ -100,7 +100,7 @@ public class DbModuleProduct{
         return result;
     }
 
-    public List<Product> GetProductsOfCatList(string category){
+    public List<Product> GetProductsOfCatList(int categoryID){
         
         List<Product> products = new List<Product>();
         
@@ -109,10 +109,10 @@ public class DbModuleProduct{
         PostgreSqlConnector sqlConnector = new PostgreSqlConnector();
 
         var sqlCommand =
-            "SELECT p.product_name, c.category_name, p.price FROM products p, categories c WHERE p.category_id = c.category_id AND c.category_name = @c AND p.user_login = @l";
+            "SELECT product_id, product_name, category_id, price FROM products WHERE category_id = @c AND user_login = @l;";
         
         NpgsqlCommand command = new NpgsqlCommand(sqlCommand, sqlConnector.GetConnection());
-        command.Parameters.AddWithValue("c", category);
+        command.Parameters.AddWithValue("c", categoryID);
         command.Parameters.AddWithValue("l", login);
 
         sqlConnector.OpenConnection();
@@ -125,8 +125,9 @@ public class DbModuleProduct{
             while (reader.Read()){
                 products.Add(new Product(
                     index++,
+                    Convert.ToInt32(reader["product_id"]),
                     reader["product_name"].ToString(),
-                    reader["category_name"].ToString(),
+                    reader["category_id"].ToString(),
                     (decimal)reader["price"]));
             }
         }
@@ -146,7 +147,7 @@ public class DbModuleProduct{
         PostgreSqlConnector sqlConnector = new PostgreSqlConnector();
 
         var sqlCommand =
-            "DELETE FROM products WHERE product_name=@p AND category_id = (SELECT category_id FROM categories WHERE category_name=@c AND user_login=@l)";
+            "DELETE FROM products WHERE product_name=@p AND user_login=@l";
 
         NpgsqlCommand command = new NpgsqlCommand(sqlCommand, sqlConnector.GetConnection());
         command.Parameters.AddWithValue("p", productName);

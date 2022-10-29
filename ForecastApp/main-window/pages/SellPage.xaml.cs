@@ -33,8 +33,8 @@ public partial class SellPage : UserControl{
 
         var category = (Category)CategoryListCmbBox.SelectedItem;
         if (category is not null){
-            var categoryName = category.Name;
-            ProductListCmnBox.ItemsSource = _moduleProduct.GetProductsOfCatList(categoryName);
+            var categoryId = category.Id;
+            ProductListCmnBox.ItemsSource = _moduleProduct.GetProductsOfCatList(categoryId);
         }
     }
 
@@ -61,7 +61,7 @@ public partial class SellPage : UserControl{
             MessageBox.Show(exception.Message);
             return;
         }
-        _moduleSale.SetSale(product.Name, category.Name, cntProduct, dateTimeStr);
+        _moduleSale.SetSale(product.Id, cntProduct, dateTimeStr);
         
         ProductListCmnBox.SelectedIndex = -1;
         CategoryListCmbBox.SelectedIndex = -1;

@@ -45,7 +45,7 @@ public partial class ProductSettingsPage : UserControl{
             return;
         }
 
-        if (_moduleProduct.CheckExistence(productName, category)){
+        if (_moduleProduct.CheckExistence(productName)){
             MessageBox.Show("Данный товара уже сущесвтвует");
             return;
         }
@@ -80,8 +80,8 @@ public partial class ProductSettingsPage : UserControl{
      
         var category = (Category)DelCategoryListCmbBox.SelectedItem;
         if (category is not null){
-            var categoryName = category.Name;
-            DelProductListCmbBox.ItemsSource = _moduleProduct.GetProductsOfCatList(categoryName);
+            var categoryId = category.Id;
+            DelProductListCmbBox.ItemsSource = _moduleProduct.GetProductsOfCatList(categoryId);
         }
     }
 

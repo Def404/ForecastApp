@@ -6,7 +6,7 @@ using Npgsql;
 
 public class DbModuleForecast{
 
-    public List<ProductCntMonth> GetProductCntMonths(string productName, string category){
+    public List<ProductCntMonth> GetProductCntMonths(string productName, int categoryId){
 
         List<ProductCntMonth> productCntMonths = new List<ProductCntMonth>();
         
@@ -15,11 +15,11 @@ public class DbModuleForecast{
         PostgreSqlConnector sqlConnector = new PostgreSqlConnector();
 
         var sqlCommand = 
-            "SELECT extract(month from sale_date) AS month, extract(year from sale_date) AS year, sum(cnt_product) AS sumCnt FROM sales s WHERE s.sale_date >  NOW() - '12 MONTH'::INTERVAL AND s.product_id = (SELECT p.product_id FROM products p WHERE p.product_name = @p AND p.category_id = (SELECT category_id FROM categories c WHERE c.category_name = @c AND c.user_login=@l)) GROUP BY month, year ORDER BY year DESC, month DESC LIMIT 12;";
+            "SELECT extract(month FROM s.sale_date) AS month, extract(year FROM s.sale_date) AS year, sum(s.cnt_product) AS sumCntProd FROM sales s JOIN products p ON p.product_id = s.product_id WHERE p.product_name=@p AND p.category_id=@c AND s.sale_date > NOW() - '12 MONTH'::INTERVAL AND p.user_login=@l GROUP BY month, year ORDER BY year DESC, month DESC LIMIT 12;";
         
         NpgsqlCommand command = new NpgsqlCommand(sqlCommand, sqlConnector.GetConnection());
         command.Parameters.AddWithValue("p", productName);
-        command.Parameters.AddWithValue("c", category);
+        command.Parameters.AddWithValue("c", categoryId);
         command.Parameters.AddWithValue("l", login);
         
         sqlConnector.OpenConnection();
@@ -31,7 +31,7 @@ public class DbModuleForecast{
                 productCntMonths.Add(new ProductCntMonth(
                     reader["month"].ToString(),
                     reader["year"].ToString(),
-                    Convert.ToInt32(reader["sumcnt"])));
+                    Convert.ToInt32(reader["sumCntProd"])));
             }
         }
         catch (Exception e){
@@ -43,7 +43,7 @@ public class DbModuleForecast{
         return productCntMonths;
     }
     
-    public List<ProductCntMonth> GetProductCntAllTime(string productName, string category){
+    public List<ProductCntMonth> GetProductCntAllTime(string productName, int categoryId){
 
         List<ProductCntMonth> productCntMonths = new List<ProductCntMonth>();
         
@@ -52,11 +52,11 @@ public class DbModuleForecast{
         PostgreSqlConnector sqlConnector = new PostgreSqlConnector();
 
         var sqlCommand = 
-            "SELECT extract(month from sale_date) AS month, extract(year from sale_date) AS year, sum(cnt_product) AS sumCnt FROM sales s WHERE s.product_id = (SELECT p.product_id FROM products p WHERE p.product_name = @p AND p.category_id = (SELECT category_id FROM categories c WHERE c.category_name = @c AND c.user_login=@l)) GROUP BY month, year ORDER BY year DESC, month DESC;";
+            "SELECT extract(month FROM s.sale_date) AS month, extract(year FROM s.sale_date) AS year, sum(s.cnt_product) AS sumCntProd FROM sales s JOIN products p ON p.product_id = s.product_id WHERE p.product_name=@p AND p.category_id=@c AND p.user_login=@l GROUP BY month, year ORDER BY year DESC, month DESC;";
         
         NpgsqlCommand command = new NpgsqlCommand(sqlCommand, sqlConnector.GetConnection());
         command.Parameters.AddWithValue("p", productName);
-        command.Parameters.AddWithValue("c", category);
+        command.Parameters.AddWithValue("c", categoryId);
         command.Parameters.AddWithValue("l", login);
         
         sqlConnector.OpenConnection();
@@ -68,7 +68,7 @@ public class DbModuleForecast{
                 productCntMonths.Add(new ProductCntMonth(
                     reader["month"].ToString(),
                     reader["year"].ToString(),
-                    Convert.ToInt32(reader["sumcnt"])));
+                    Convert.ToInt32(reader["sumCntProd"])));
             }
         }
         catch (Exception e){
