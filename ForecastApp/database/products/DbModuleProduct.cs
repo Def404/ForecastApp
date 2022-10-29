@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows;
+using ForecastApp.main_window;
 using Npgsql;
 
-namespace ForecastApp.products;
+namespace ForecastApp.database.products;
 
 public class DbModuleProduct{
     
@@ -15,7 +16,7 @@ public class DbModuleProduct{
 
         PostgreSqlConnector sqlConnector = new PostgreSqlConnector();
 
-        var sqlCommand =
+        const string sqlCommand = 
             "SELECT p.product_id, p.product_name, c.category_name, p.price FROM products p, categories c  WHERE  p.category_id = c.category_id AND p.user_login = @l";
         
         NpgsqlCommand command = new NpgsqlCommand(sqlCommand, sqlConnector.GetConnection());
@@ -52,8 +53,7 @@ public class DbModuleProduct{
 
         PostgreSqlConnector sqlConnector = new PostgreSqlConnector();
 
-        var sqlCommand =
-            "INSERT INTO products(product_name, category_id, price, user_login) VALUES (@p, (SELECT category_id FROM categories WHERE categories.category_name = @c AND categories.user_login = @l), @pr, @l)";
+        const string sqlCommand = "INSERT INTO products(product_name, category_id, price, user_login) VALUES (@p, (SELECT category_id FROM categories WHERE categories.category_name = @c AND categories.user_login = @l), @pr, @l)";
 
         NpgsqlCommand command = new NpgsqlCommand(sqlCommand, sqlConnector.GetConnection());
         command.Parameters.AddWithValue("p", productName);
@@ -81,7 +81,7 @@ public class DbModuleProduct{
 
         PostgreSqlConnector sqlConnector = new PostgreSqlConnector();
 
-        var sqlCommand =
+        const string sqlCommand = 
             "SELECT EXISTS(SELECT * FROM products p  WHERE p.product_name=@p AND p.user_login = @l);";
 
         NpgsqlCommand command = new NpgsqlCommand(sqlCommand, sqlConnector.GetConnection());
@@ -108,7 +108,7 @@ public class DbModuleProduct{
 
         PostgreSqlConnector sqlConnector = new PostgreSqlConnector();
 
-        var sqlCommand =
+        const string sqlCommand = 
             "SELECT product_id, product_name, category_id, price FROM products WHERE category_id = @c AND user_login = @l;";
         
         NpgsqlCommand command = new NpgsqlCommand(sqlCommand, sqlConnector.GetConnection());
@@ -146,7 +146,7 @@ public class DbModuleProduct{
 
         PostgreSqlConnector sqlConnector = new PostgreSqlConnector();
 
-        var sqlCommand =
+        const string sqlCommand = 
             "DELETE FROM products WHERE product_name=@p AND user_login=@l";
 
         NpgsqlCommand command = new NpgsqlCommand(sqlCommand, sqlConnector.GetConnection());
@@ -172,7 +172,7 @@ public class DbModuleProduct{
 
         PostgreSqlConnector sqlConnector = new PostgreSqlConnector();
 
-        var sqlCommand = 
+        const string sqlCommand = 
             "UPDATE products SET product_name = @newPr WHERE product_name = @oldPr AND user_login = @l";
         
         NpgsqlCommand command = new NpgsqlCommand(sqlCommand, sqlConnector.GetConnection());
@@ -197,7 +197,7 @@ public class DbModuleProduct{
         
         PostgreSqlConnector sqlConnector = new PostgreSqlConnector();
 
-        var sqlCommand = 
+        const string sqlCommand = 
             "UPDATE products SET price = @newPrice WHERE product_name = @p AND user_login = @l";
         
         NpgsqlCommand command = new NpgsqlCommand(sqlCommand, sqlConnector.GetConnection());

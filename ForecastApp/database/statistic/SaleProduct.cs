@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ForecastApp.statistic;
+namespace ForecastApp.database.statistic;
 
 public class SaleProduct{
     public DateTime Date { get; }

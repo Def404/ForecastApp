@@ -1,8 +1,7 @@
-﻿using System;
-using System.Windows;
+﻿using System.Windows;
 using Npgsql;
 
-namespace ForecastApp;
+namespace ForecastApp.database;
 
 public class PostgreSqlConnector{
 

@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows;
-using ForecastApp;
+using ForecastApp.main_window;
 using Npgsql;
+
+namespace ForecastApp.database.forecast;
 
 public class DbModuleForecast{
 
@@ -14,7 +16,7 @@ public class DbModuleForecast{
 
         PostgreSqlConnector sqlConnector = new PostgreSqlConnector();
 
-        var sqlCommand = 
+        const string sqlCommand = 
             "SELECT extract(month FROM s.sale_date) AS month, extract(year FROM s.sale_date) AS year, sum(s.cnt_product) AS sumCntProd FROM sales s JOIN products p ON p.product_id = s.product_id WHERE p.product_name=@p AND p.category_id=@c AND s.sale_date > NOW() - '12 MONTH'::INTERVAL AND p.user_login=@l GROUP BY month, year ORDER BY year DESC, month DESC LIMIT 12;";
         
         NpgsqlCommand command = new NpgsqlCommand(sqlCommand, sqlConnector.GetConnection());
@@ -51,7 +53,7 @@ public class DbModuleForecast{
 
         PostgreSqlConnector sqlConnector = new PostgreSqlConnector();
 
-        var sqlCommand = 
+        const string sqlCommand = 
             "SELECT extract(month FROM s.sale_date) AS month, extract(year FROM s.sale_date) AS year, sum(s.cnt_product) AS sumCntProd FROM sales s JOIN products p ON p.product_id = s.product_id WHERE p.product_name=@p AND p.category_id=@c AND p.user_login=@l GROUP BY month, year ORDER BY year DESC, month DESC;";
         
         NpgsqlCommand command = new NpgsqlCommand(sqlCommand, sqlConnector.GetConnection());

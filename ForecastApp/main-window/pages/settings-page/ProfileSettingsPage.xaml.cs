@@ -1,6 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 using ForecastApp.database;
+using ForecastApp.database.user;
 
 namespace ForecastApp.main_window.pages.settings_page;
 

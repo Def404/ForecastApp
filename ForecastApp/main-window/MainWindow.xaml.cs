@@ -1,10 +1,11 @@
 ﻿using System.Windows;
 using ForecastApp.authorization_window;
 using ForecastApp.database;
+using ForecastApp.database.user;
 using ForecastApp.main_window.pages;
+using ForecastApp.main_window.pages.forecast_page;
 
-
-namespace ForecastApp{
+namespace ForecastApp.main_window{
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
@@ -16,7 +17,7 @@ namespace ForecastApp{
         private readonly StatisticPage _statisticPage = new StatisticPage();
         private readonly SettingsPage _settingsPage = new SettingsPage();
 
-        public static User _user = new User();
+        public static readonly User _user = new User();
         
         public MainWindow(){
             InitializeComponent();

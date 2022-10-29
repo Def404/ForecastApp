@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Windows;
+using ForecastApp.database.forecast;
 
-namespace ForecastApp.main_window.pages;
+namespace ForecastApp.main_window.pages.forecast_page;
 
 public class ForecastingMethod{
     public int ExtrapolationMethod(List<ProductCntMonth> productCntMonthList){
@@ -41,7 +41,7 @@ public class ForecastingMethod{
         
         int sumCntProduct = 0;
         int sumNumMonth = 0;
-        int sumСompositionProductMonth = 0;
+        int sumCompositionProductMonth = 0;
         int sumSquareNumMonth = 0;
 
         for (DateTime date = endDate; date < firstDate.AddMonths(1); date = date.AddMonths(1)){
@@ -56,7 +56,7 @@ public class ForecastingMethod{
         }
 
         double a1 = monthNumber * sumSquareNumMonth - Math.Pow(sumNumMonth, 2);
-        double a = (monthNumber * sumСompositionProductMonth - sumNumMonth * sumCntProduct) / a1;
+        double a = (monthNumber * sumCompositionProductMonth - sumNumMonth * sumCntProduct) / a1;
         double b = (sumCntProduct - a * sumNumMonth) / monthNumber;
 
         forecastValue = (int) Math.Round(a * firstDate.AddMonths(1).Month + b);

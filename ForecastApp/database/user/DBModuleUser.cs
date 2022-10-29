@@ -12,7 +12,7 @@ public class DbModuleUser{
 
         PostgreSqlConnector sqlConnector = new PostgreSqlConnector();
         
-        var sqlCommand = 
+        const string sqlCommand = 
             "SELECT CAST(count(*) AS BIT) AS cnt FROM users WHERE login=@l";
         
         NpgsqlCommand command = new NpgsqlCommand(sqlCommand, sqlConnector.GetConnection());
@@ -38,7 +38,7 @@ public class DbModuleUser{
         
         PostgreSqlConnector sqlConnector = new PostgreSqlConnector();
 
-        var sqlCommand = 
+        const string sqlCommand = 
             "INSERT INTO users (login,  user_name, user_surname, email, password) VALUES (@l, @name, @surname, @email, crypt(@pas, gen_salt('md5')))";
 
         NpgsqlCommand command = new NpgsqlCommand(sqlCommand, sqlConnector.GetConnection());
@@ -68,7 +68,7 @@ public class DbModuleUser{
         
         PostgreSqlConnector sqlConnector = new PostgreSqlConnector();
 
-        var sqlCommand = 
+        const string sqlCommand = 
             "SELECT login, user_name, user_surname, email, password FROM  users WHERE login=@l AND password = crypt(@pas, password)";
         
         NpgsqlCommand command = new NpgsqlCommand(sqlCommand, sqlConnector.GetConnection());

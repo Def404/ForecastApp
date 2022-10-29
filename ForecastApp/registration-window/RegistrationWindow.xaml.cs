@@ -2,12 +2,13 @@
 using System.Windows;
 using ForecastApp.database;
 using ForecastApp.database.user;
+using ForecastApp.main_window;
 
 namespace ForecastApp.registration_window;
 
 public partial class RegistrationWindow : Window{
     
-    private DbModuleUser _moduleUser = new DbModuleUser();
+    private readonly DbModuleUser _moduleUser = new DbModuleUser();
     public RegistrationWindow(){
         InitializeComponent();
     }
@@ -75,7 +76,6 @@ public partial class RegistrationWindow : Window{
         else{
             ErrorCard.Visibility = Visibility.Visible;
             ErrorTxtBLock.Text = "Ошибка регистрации";
-            return;
         }
     }
 }

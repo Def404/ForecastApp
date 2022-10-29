@@ -1,4 +1,4 @@
-﻿namespace ForecastApp.categories;
+﻿namespace ForecastApp.database.categories;
 
 public class Category{
     

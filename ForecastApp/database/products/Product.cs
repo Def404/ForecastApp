@@ -1,4 +1,4 @@
-﻿namespace ForecastApp.products;
+﻿namespace ForecastApp.database.products;
 
 public class Product{
     

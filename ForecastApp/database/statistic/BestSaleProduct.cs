@@ -1,4 +1,4 @@
-﻿namespace ForecastApp.statistic;
+﻿namespace ForecastApp.database.statistic;
 
 public class BestSaleProduct{
     public string ProductName { get; }

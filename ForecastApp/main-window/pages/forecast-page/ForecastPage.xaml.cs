@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
-using ForecastApp.categories;
-using ForecastApp.products;
+using ForecastApp.database.categories;
+using ForecastApp.database.forecast;
+using ForecastApp.database.products;
 
-namespace ForecastApp.main_window.pages;
+namespace ForecastApp.main_window.pages.forecast_page;
 
 public partial class ForecastPage : UserControl{
     private readonly DbModuleCategory _moduleCategory = new DbModuleCategory();

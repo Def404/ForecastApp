@@ -4,9 +4,9 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
-using ForecastApp.categories;
-using ForecastApp.products;
-using ForecastApp.statistic;
+using ForecastApp.database.categories;
+using ForecastApp.database.products;
+using ForecastApp.database.statistic;
 using LiveCharts;
 using LiveCharts.Wpf;
 
@@ -17,10 +17,10 @@ public partial class StatisticPage : UserControl{
     private readonly DbModuleProduct _moduleProduct = new DbModuleProduct();
     private readonly DbModuleCategory _moduleCategory = new DbModuleCategory();
     private readonly DbModuleStatistic _moduleStatistic = new DbModuleStatistic();
-    
-    public SeriesCollection SeriesCollection { get; set; }
-    public string[] Labels { get; set; }
-    public Func<int, string> YFormatter { get; set; }
+
+    private SeriesCollection SeriesCollection { get; set; }
+    private string[] Labels { get; set; }
+    private Func<int, string> YFormatter { get; set; }
     
     public StatisticPage(){
         InitializeComponent();

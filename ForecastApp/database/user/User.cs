@@ -5,7 +5,7 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Windows;
 
-namespace ForecastApp.database;
+namespace ForecastApp.database.user;
 
 public class User{
     

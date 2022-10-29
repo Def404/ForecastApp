@@ -1,10 +1,9 @@
-﻿using System.Collections.Generic;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using ForecastApp.categories;
-using ForecastApp.products;
+using ForecastApp.database.categories;
+using ForecastApp.database.products;
 
-namespace ForecastApp.main_window.pages;
+namespace ForecastApp.main_window.pages.settings_page;
 
 public partial class CategorySettingsPage : UserControl{
 

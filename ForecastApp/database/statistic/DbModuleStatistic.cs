@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows;
+using ForecastApp.main_window;
 using Npgsql;
 using NpgsqlTypes;
 
-namespace ForecastApp.statistic;
+namespace ForecastApp.database.statistic;
 
 public class DbModuleStatistic{
 
@@ -19,7 +20,7 @@ public class DbModuleStatistic{
 
         PostgreSqlConnector sqlConnector = new PostgreSqlConnector();
 
-        var sqlCommand =
+        const string sqlCommand = 
             "SELECT p.product_name,  sum(cnt_product) as sum_cnt, sum(sale_price*cnt_product) as sum_price FROM sales s, products p WHERE sale_date >= @startDate AND sale_date<=@endDate AND s.product_id = p.product_id AND p.user_login = @l GROUP BY s.product_id, p.product_name";
 
         NpgsqlCommand command = new NpgsqlCommand(sqlCommand, sqlConnector.GetConnection());
@@ -56,7 +57,7 @@ public class DbModuleStatistic{
         
         var login = MainWindow._user.Login;
         
-          var sqlCommand =
+          const string sqlCommand = 
               "CREATE TEMP TABLE tempBestCnt AS SELECT p.product_id, p.product_name, c.category_name, extract(month from s.sale_date) AS month, extract(year from s.sale_date) AS year, sum(s.cnt_product) AS sumCnt, sum(s.sale_price * s.cnt_product) as sumPrice FROM sales s JOIN products p on s.product_id = p.product_id JOIN categories c on c.category_id = p.category_id WHERE p.user_login=@l GROUP BY p.product_id, month,year, p.product_name, c.category_name; SELECT product_id, product_name, category_name, year, month, sumCnt, sumPrice FROM tempBestCnt WHERE (sumCnt, year, month) IN (SELECT max(sumCnt), year, month FROM tempBestCnt GROUP BY year, month) ORDER BY year DESC, month DESC;";
           
         NpgsqlCommand command = new NpgsqlCommand(sqlCommand, sqlConnector.GetConnection());
@@ -95,7 +96,7 @@ public class DbModuleStatistic{
 
         PostgreSqlConnector sqlConnector = new PostgreSqlConnector();
         
-          var sqlCommand =
+          const string sqlCommand =
               "CREATE TEMP TABLE tempBestPrice AS SELECT p.product_id, p.product_name, c.category_name, extract(month from s.sale_date) AS month, extract(year from s.sale_date) AS year, sum(s.cnt_product) AS sumCnt, sum(s.sale_price * s.cnt_product) as sumPrice FROM sales s JOIN products p on s.product_id = p.product_id JOIN categories c on c.category_id = p.category_id WHERE p.user_login=@l GROUP BY p.product_id, month,year, p.product_name, c.category_name; SELECT product_id, product_name, category_name, year, month, sumCnt, sumPrice FROM tempBestPrice WHERE (sumPrice, year, month) IN (SELECT max(sumPrice), year, month FROM tempBestPrice GROUP BY year, month) ORDER BY year DESC, month DESC;";
         NpgsqlCommand command = new NpgsqlCommand(sqlCommand, sqlConnector.GetConnection());
         command.Parameters.AddWithValue("l", login);
@@ -131,7 +132,7 @@ public class DbModuleStatistic{
         
         PostgreSqlConnector sqlConnector = new PostgreSqlConnector();
 
-        var sqlCommand =
+        const string sqlCommand = 
             "SELECT extract(month from sale_date) AS month, extract(year from sale_date) AS year,sum(cnt_product) AS sumCnt FROM sales s WHERE s.product_id = @p GROUP BY month, year ORDER BY year DESC, month DESC;";
         
         NpgsqlCommand command = new NpgsqlCommand(sqlCommand, sqlConnector.GetConnection());

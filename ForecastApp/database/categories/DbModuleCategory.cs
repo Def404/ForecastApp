@@ -1,21 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows;
+using ForecastApp.main_window;
 using Npgsql;
 
-namespace ForecastApp.categories;
+namespace ForecastApp.database.categories;
 
 public class DbModuleCategory{
     
     public List<Category> GetCategoryList(){
         
-        List<Category> _categories = new List<Category>();
+        List<Category> categories = new List<Category>();
 
-        var login = MainWindow._user.Login;
+        string login = MainWindow._user.Login;
         
         PostgreSqlConnector sqlConnector = new PostgreSqlConnector();
             
-        var sqlCommand =
+        const string sqlCommand = 
             "SELECT * FROM categories WHERE user_login = @l";
         
         NpgsqlCommand command = new NpgsqlCommand(sqlCommand, sqlConnector.GetConnection());
@@ -29,7 +30,7 @@ public class DbModuleCategory{
             var index = 1;
 
             while (reader.Read()){
-                _categories.Add(new Category(index++,
+                categories.Add(new Category(index++,
                     Convert.ToInt32(reader["category_id"]), 
                     reader["category_name"].ToString()));
             }
@@ -40,17 +41,17 @@ public class DbModuleCategory{
         
         sqlConnector.CloseConnection();
         
-        return _categories;
+        return categories;
 
     }
 
     public void SetCategory(string categoryName){
         
-        var login = MainWindow._user.Login;
+        string login = MainWindow._user.Login;
         
         PostgreSqlConnector sqlConnector = new PostgreSqlConnector();
         
-        var sqlCommand = 
+        const string sqlCommand = 
             "INSERT INTO categories(category_name, user_login) VALUES (@c, (SELECT login FROM users WHERE login = @l))";
         
         NpgsqlCommand command = new NpgsqlCommand(sqlCommand, sqlConnector.GetConnection());
@@ -105,7 +106,7 @@ public class DbModuleCategory{
         
         PostgreSqlConnector sqlConnector = new PostgreSqlConnector();
 
-        var sqlCommand = 
+        const string sqlCommand = 
             "DELETE FROM categories WHERE category_name = @c AND user_login=@l";
         
         NpgsqlCommand command = new NpgsqlCommand(sqlCommand, sqlConnector.GetConnection());
@@ -130,7 +131,7 @@ public class DbModuleCategory{
         
         PostgreSqlConnector sqlConnector = new PostgreSqlConnector();
 
-        var sqlCommand = 
+        const string sqlCommand = 
             "UPDATE categories SET category_name = @newCat WHERE category_name = @oldCat AND user_login = @l";
         
         NpgsqlCommand command = new NpgsqlCommand(sqlCommand, sqlConnector.GetConnection());

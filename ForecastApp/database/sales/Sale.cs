@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace ForecastApp.sales;
+﻿namespace ForecastApp.database.sales;
 
 public class Sale{
     public string ProductName{ get; set; }

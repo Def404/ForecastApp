@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows;
+using ForecastApp.main_window;
 using Npgsql;
 
-namespace ForecastApp.sales;
+namespace ForecastApp.database.sales;
 
 public class DbModuleSale{
 
@@ -15,7 +16,7 @@ public class DbModuleSale{
 
         PostgreSqlConnector sqlConnector = new PostgreSqlConnector();
 
-        var sqlCommand =
+        const string sqlCommand = 
             "SELECT p.product_name, c.category_name, s.cnt_product, to_char(s.sale_date,  'dd.MM.yyyy') as sale_date, s.sale_price FROM sales s, products p, categories c WHERE s.product_id=p.product_id AND p.category_id = c.category_id AND p.user_login = @l";
         
         NpgsqlCommand command = new NpgsqlCommand(sqlCommand, sqlConnector.GetConnection());
@@ -50,7 +51,7 @@ public class DbModuleSale{
         
         PostgreSqlConnector sqlConnector = new PostgreSqlConnector();
 
-        var sqlCommand =
+        const string sqlCommand = 
             "INSERT INTO sales (product_id, cnt_product, sale_date, sale_price) VALUES ((@pId), @cntPr, to_date(@slDate, 'MM-dd-yyyy'), (SELECT price FROM products p WHERE p.product_id=@pId));";
 
         NpgsqlCommand command = new NpgsqlCommand(sqlCommand, sqlConnector.GetConnection());

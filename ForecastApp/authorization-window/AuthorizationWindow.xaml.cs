@@ -1,13 +1,14 @@
 ﻿using System.Text.RegularExpressions;
 using System.Windows;
 using ForecastApp.database.user;
+using ForecastApp.main_window;
 using ForecastApp.registration_window;
 
 namespace ForecastApp.authorization_window;
 
 public partial class AuthorizationWindow : Window{
     
-    private DbModuleUser _moduleUser = new DbModuleUser();
+    private readonly DbModuleUser _moduleUser = new();
     public AuthorizationWindow(){
         InitializeComponent();
     }
@@ -51,7 +52,6 @@ public partial class AuthorizationWindow : Window{
         else{
             ErrorCard.Visibility = Visibility.Visible;
             ErrorTxtBLock.Text = "Ошибка авторизации";
-            return;
         }
     }
 

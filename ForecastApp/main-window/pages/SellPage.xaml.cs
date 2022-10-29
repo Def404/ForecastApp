@@ -2,17 +2,17 @@
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Markup;
-using ForecastApp.categories;
-using ForecastApp.products;
-using ForecastApp.sales;
+using ForecastApp.database.categories;
+using ForecastApp.database.products;
+using ForecastApp.database.sales;
 
 namespace ForecastApp.main_window.pages;
 
 public partial class SellPage : UserControl{
     
-    private DbModuleSale _moduleSale = new DbModuleSale();
-    private DbModuleCategory _moduleCategory = new DbModuleCategory();
-    private DbModuleProduct _moduleProduct = new DbModuleProduct();
+    private readonly DbModuleSale _moduleSale = new DbModuleSale();
+    private readonly DbModuleCategory _moduleCategory = new DbModuleCategory();
+    private readonly DbModuleProduct _moduleProduct = new DbModuleProduct();
     public SellPage(){
         InitializeComponent();
     }

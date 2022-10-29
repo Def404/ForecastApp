@@ -6,9 +6,9 @@ namespace ForecastApp.main_window.pages;
 
 public partial class SettingsPage : UserControl{
     
-    private static readonly CategorySettingsPage _categorySettingsPage = new CategorySettingsPage();
-    private static readonly ProductSettingsPage _productSettingsPage = new ProductSettingsPage();
-    private static readonly ProfileSettingsPage _profileSettingsPage = new ProfileSettingsPage();
+    private readonly CategorySettingsPage _categorySettingsPage = new CategorySettingsPage();
+    private readonly ProductSettingsPage _productSettingsPage = new ProductSettingsPage();
+    private readonly ProfileSettingsPage _profileSettingsPage = new ProfileSettingsPage();
     public SettingsPage(){
         InitializeComponent();
     }
