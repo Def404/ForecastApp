@@ -58,11 +58,16 @@ public class User{
             }
 
             var path = Path.Combine(AppDate, FileName);
+            if (File.Exists(path)){
+                File.Delete(path);
+            }
+            
             using FileStream fileStream = File.Create(path);
-            
-            JsonSerializer.SerializeAsync(fileStream, this);
-            fileStream.DisposeAsync();
-            
+
+            User user = this;
+            JsonSerializer.Serialize(fileStream, user);
+            fileStream.Close();
+
             return true;
         }
         catch (Exception e){
@@ -74,6 +79,11 @@ public class User{
 
     public void GetUserFromJson(){
         try{
+            
+            if (!Directory.Exists(AppDate)){
+               return;
+            }
+            
             string json = File.ReadAllText(Path.Combine(AppDate, FileName));
             User? user = JsonSerializer.Deserialize<User>(json);
             
