@@ -47,7 +47,7 @@ public partial class StatisticPage : UserControl{
         
         DateTime dateTimeNow = DateTime.Now;
         string endDate =  dateTimeNow.ToString("dd-MM-yyyy");
-        string startDate = new DateTime(dateTimeNow.Year, dateTimeNow.Month - 1, dateTimeNow.Day).ToString("dd-MM-yyyy");
+        string startDate = dateTimeNow.AddMonths(-1).ToString("dd-MM-yyyy");
         
         LoadAllStatistic(startDate, endDate);
     }
@@ -56,7 +56,7 @@ public partial class StatisticPage : UserControl{
         
         DateTime dateTimeNow = DateTime.Now;
         string endDate =  dateTimeNow.ToString("dd-MM-yyyy");
-        string startDate = new DateTime(dateTimeNow.Year - 1, dateTimeNow.Month , dateTimeNow.Day).ToString("dd-MM-yyyy");
+        string startDate = dateTimeNow.AddYears(-1).ToString("dd-MM-yyyy");
         
         LoadAllStatistic(startDate, endDate);
     }
