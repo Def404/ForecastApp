@@ -18,9 +18,9 @@ public partial class StatisticPage : UserControl{
     private readonly DbModuleCategory _moduleCategory = new DbModuleCategory();
     private readonly DbModuleStatistic _moduleStatistic = new DbModuleStatistic();
 
-    private SeriesCollection SeriesCollection { get; set; }
-    private string[] Labels { get; set; }
-    private Func<int, string> YFormatter { get; set; }
+    public SeriesCollection SeriesCollection { get; set; }
+    public string[] Labels { get; set; }
+    public Func<int, string> YFormatter { get; set; }
     
     public StatisticPage(){
         InitializeComponent();
@@ -119,7 +119,7 @@ public partial class StatisticPage : UserControl{
 
         var maxDate = saleProducts[0].Date;
         var minDate = saleProducts[^1].Date;
-
+        
         for (DateTime dateTime = minDate; dateTime<=maxDate;  dateTime = dateTime.AddMonths(1)){
             
             int check = 0;
